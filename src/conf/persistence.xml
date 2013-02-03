@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="EmpleosCartagenaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.empleoscartagena.www.entities.Ofertas</class>
+    <class>com.empleoscartagena.www.entities.Profesion</class>
+    <class>com.empleoscartagena.www.entities.Empresas</class>
+    <class>com.empleoscartagena.www.entities.ExperienciaLaboral</class>
+    <class>com.empleoscartagena.www.entities.Inscripcion</class>
+    <class>com.empleoscartagena.www.entities.CapacidadesPorOfertas</class>
+    <class>com.empleoscartagena.www.entities.ProfesionesPorAspirante</class>
+    <class>com.empleoscartagena.www.entities.Pruebas</class>
+    <class>com.empleoscartagena.www.entities.Capacidad</class>
+    <class>com.empleoscartagena.www.entities.CategoriaDeProfesiones</class>
+    <class>com.empleoscartagena.www.entities.CapacidadesPorExperiencias</class>
+    <class>com.empleoscartagena.www.entities.ProfesionesPorOferta</class>
+    <class>com.empleoscartagena.www.entities.Area</class>
+    <class>com.empleoscartagena.www.entities.Referencias</class>
+    <class>com.empleoscartagena.www.entities.CapacidadesPorEstudios</class>
+    <class>com.empleoscartagena.www.entities.DatosPersonales</class>
+    <class>com.empleoscartagena.www.entities.Evaluaciones</class>
+    <class>com.empleoscartagena.www.entities.Estudios</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/empleabilidad?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>

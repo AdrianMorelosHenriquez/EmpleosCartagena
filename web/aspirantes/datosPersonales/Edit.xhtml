@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDatosPersonalesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{datosPersonalesController.selected.id}" title="#{bundle.EditDatosPersonalesTitle_id}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_nombres}" for="nombres" />
+                    <h:inputText id="nombres" value="#{datosPersonalesController.selected.nombres}" title="#{bundle.EditDatosPersonalesTitle_nombres}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_nombres}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_apellido1}" for="apellido1" />
+                    <h:inputText id="apellido1" value="#{datosPersonalesController.selected.apellido1}" title="#{bundle.EditDatosPersonalesTitle_apellido1}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_apellido1}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_sexo}" for="sexo" />
+                    <h:inputText id="sexo" value="#{datosPersonalesController.selected.sexo}" title="#{bundle.EditDatosPersonalesTitle_sexo}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_sexo}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_estadoCivil}" for="estadoCivil" />
+                    <h:inputText id="estadoCivil" value="#{datosPersonalesController.selected.estadoCivil}" title="#{bundle.EditDatosPersonalesTitle_estadoCivil}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_estadoCivil}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_lugarNacimiento}" for="lugarNacimiento" />
+                    <h:inputText id="lugarNacimiento" value="#{datosPersonalesController.selected.lugarNacimiento}" title="#{bundle.EditDatosPersonalesTitle_lugarNacimiento}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_lugarNacimiento}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_fechaNacimiento}" for="fechaNacimiento" />
+                    <h:inputText id="fechaNacimiento" value="#{datosPersonalesController.selected.fechaNacimiento}" title="#{bundle.EditDatosPersonalesTitle_fechaNacimiento}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_fechaNacimiento}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_direccion}" for="direccion" />
+                    <h:inputText id="direccion" value="#{datosPersonalesController.selected.direccion}" title="#{bundle.EditDatosPersonalesTitle_direccion}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_direccion}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_barrio}" for="barrio" />
+                    <h:inputText id="barrio" value="#{datosPersonalesController.selected.barrio}" title="#{bundle.EditDatosPersonalesTitle_barrio}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_barrio}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_cudad}" for="cudad" />
+                    <h:inputText id="cudad" value="#{datosPersonalesController.selected.cudad}" title="#{bundle.EditDatosPersonalesTitle_cudad}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_cudad}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_telefono}" for="telefono" />
+                    <h:inputText id="telefono" value="#{datosPersonalesController.selected.telefono}" title="#{bundle.EditDatosPersonalesTitle_telefono}" />
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_celular}" for="celular" />
+                    <h:inputText id="celular" value="#{datosPersonalesController.selected.celular}" title="#{bundle.EditDatosPersonalesTitle_celular}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_celular}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{datosPersonalesController.selected.email}" title="#{bundle.EditDatosPersonalesTitle_email}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{datosPersonalesController.selected.descripcion}" title="#{bundle.EditDatosPersonalesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditDatosPersonalesLabel_tipoDocumento}" for="tipoDocumento" />
+                    <h:inputText id="tipoDocumento" value="#{datosPersonalesController.selected.tipoDocumento}" title="#{bundle.EditDatosPersonalesTitle_tipoDocumento}" required="true" requiredMessage="#{bundle.EditDatosPersonalesRequiredMessage_tipoDocumento}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{datosPersonalesController.update}" value="#{bundle.EditDatosPersonalesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDatosPersonalesViewLink}"/>
+                <br />
+                <h:commandLink action="#{datosPersonalesController.prepareList}" value="#{bundle.EditDatosPersonalesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDatosPersonalesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title><ui:insert name="title">Empleabilidad</ui:insert></title>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <div id="wrapper"> 
+                <div id="container">  
+                    <div id="top">
+                        <div id="logo" >logotipo</div>
+                        <div class="slogan">Líderes en ofertas de empleo y oportunidades laborales en Latinoamérica.</div>
+                        <div id="menu">
+                            <h:form>
+                                <p:menubar>
+                                    <p:submenu label="Hojas de vida" icon="ui-icon-document">
+                                        <p:menuitem value="Crear" url="/faces/aspirante/CreateDatosPersonales.xhtml" icon="ui-icon-pencil" />
+                                        <p:menuitem value="Ver detalles" url="#"  icon="ui-icon-help" />
+                                        <p:menuitem value="Actualizar" url="#" icon="ui-icon-gear" />
+                                        <p:menuitem value="Listar" url="/faces/aspirante/List.xhtml" icon="ui-icon-help" />
+                                        <p:menuitem value="Filtro" url="#" vicon="ui-icon-gear" />
+                                        <p:separator />
+                                        <p:menuitem value="Quit" url="#" />
+                                    </p:submenu>
+                                    <!--
+                                    <p:menuitem value="Areas" url="/faces/area/List.xhtml" />-->
+                                    <f:facet name="options">
+                                        <p:inputText style="margin-right:10px"/>
+                                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                                    </f:facet>
+                                </p:menubar>
+                            </h:form>
+                        </div>
+                    </div>  
+                    <div id="left"> 
+                        <div class="box search">
+                            <div class="content">
+                                <form action="">
+                                    <input type="text" value="" placeholder="" />
+                                    <button type="submit"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="box statics">
+                            <div class="content">
+                                <ul>
+                                    <li><h2>Mi Cuenta</h2></li>
+                                    <li><h:link outcome="/aspirante/List" value="Lista de Aspirantes"/><div class="info red"><span>999</span></div></li>
+                                    <li>Ver Postulaciones<div class="info blue"><span>654</span></div></li>
+                                    <li>Profesiones por Aspirantes<div class="info green"><span>7</span></div></li>
+                                    <li>Lista de Aspirantes <div class="info red"><span>999</span></div></li>
+                                    <li>Evaluaciones<div class="info blue"><span>654</span></div></li>
+                                    <li>Capacidades por estudios<div class="info blue"><span>654</span></div></li>
+                                    <li>Capacidad por experiencias<div class="info green"><span>7</span></div></li>
+                                    <li>Capacidades por ofertas<div class="info black"><span>999</span></div></li>
+                                    <li>Salir</li>
+                                </ul>
+                            </div>
+                        </div>
+                        -->
+                    </div>  
+                    <div id="right">  
+                        <ui:insert name="body">Default Body</ui:insert>
+                    </div>  
+                </div>  
+            </div>
+        </h:body>
+    </f:view>
+
+</html>
