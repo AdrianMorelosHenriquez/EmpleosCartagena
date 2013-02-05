@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:growl id="messages"/>  
+            <div class="message blue">
+                Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
+                El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
+            </div>
+            <br/>
+            <p:fieldset legend="Actualizar Empresa"> 
+                <h:form id="form">
+                    <p:growl id="growl"/>  
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_nit}" for="nit" />
+                        <h:outputText value="#{empresasController.selected.nit}" />
+
+                    </h:panelGrid>
+                    <br/>   
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{empresasController.nombre}"  required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_nombre}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_actividad}" for="actividad" />
+                        <p:inputText id="actividad" value="#{empresasController.actividad}"  required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_actividad}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_nombreContacto}" for="nombreContacto" />
+                        <p:inputText id="nombreContacto" value="#{empresasController.nombreContacto}" required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_nombreContacto}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_representanteLegal}" for="representanteLegal" />
+                        <p:inputText id="representanteLegal" value="#{empresasController.repLegal}" />
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_telefonoContacto}" for="telefonoContacto" />
+                        <p:inputText id="telefonoContacto" value="#{empresasController.telContacto}"  required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_telefonoContacto}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_celularContacto}" for="celularContacto" />
+                        <p:inputText id="celularContacto" value="#{empresasController.celContacto}"  required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_celularContacto}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{empresasController.direccion}"  required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_direccion}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{empresasController.email}" required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_email}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateEmpresasLabel_descripcion}" for="descripcion" />
+                        <p:editor id="descripcion" value="#{empresasController.descripcion}" width="670" required="true" requiredMessage="#{bundle.CreateEmpresasRequiredMessage_descripcion}"/>
+                    </h:panelGrid>
+                    <br />
+                    <p:commandButton value="Actualizar" icon="ui-icon-disk" 
+                                 update="growl"
+                                 action="#{empresasController.doUpdate(actionEvent)}"
+                                 ajax="false">
+                    <p:resetInput target="form"/>
+                   </p:commandButton>
+                    <p:commandButton action="#{empresasController.prepareList}" value="#{bundle.CreateEmpresasShowAllLink}" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{bundle.CreateEmpresasIndexLink}"/>
+                </h:form>
+            </p:fieldset>  
+        </ui:define>
+    </ui:composition>
+</html>
+

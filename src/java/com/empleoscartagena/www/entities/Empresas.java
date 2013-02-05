@@ -103,7 +103,7 @@ public class Empresas implements Serializable {
         this.nit = nit;
     }
 
-    public Empresas(String nit, String nombre, String actividad, String nombreContacto, String celularContacto, String telefonoContacto, String direccion, String email, String descripcion) {
+    public Empresas(String nit, String nombre, String actividad, String nombreContacto, String celularContacto, String telefonoContacto, String direccion, String email, String descripcion,String repLegal) {
         this.nit = nit;
         this.nombre = nombre;
         this.actividad = actividad;
@@ -113,6 +113,7 @@ public class Empresas implements Serializable {
         this.direccion = direccion;
         this.email = email;
         this.descripcion = descripcion;
+        this.representanteLegal = repLegal;
     }
 
     public String getNit() {

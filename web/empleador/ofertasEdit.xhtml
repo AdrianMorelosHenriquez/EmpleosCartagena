@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:growl id="messages"/>  
+            <div class="message blue">
+                Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
+                El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
+            </div>
+            <br/>
+            <p:fieldset legend="Actualizar Empresa"> 
+                <h:form id="form">
+                    <p:growl id="growl"/>  
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_fechaStart}" for="fechaStart" />
+                        <p:calendar id="fechaStart" value="#{ofertasController.fechaStart}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_fechaStart}"/>
+                    </h:panelGrid>
+                    <br/>   
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_fechaEnd}" for="fechaEnd" />
+                        <p:calendar id="fechaEnd" value="#{ofertasController.fechaEnd}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_fechaEnd}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{ofertasController.cargo}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_cargo}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_salario}" for="salario" />
+                        <p:inputText id="salario" value="#{ofertasController.salario}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_salario}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_descripcion}" for="descripcion" />
+                        <p:editor id="descripcion" value="#{ofertasController.descripcion}"  width="670" required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_descripcion}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nivelEstudiosMin}" for="nivelEstudiosMin" />
+                        <p:inputText id="nivelEstudiosMin" value="#{ofertasController.nivelEstudiosMin}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nivelEstudiosMin}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nivelEstudiosMax}" for="nivelEstudiosMax" />
+                        <p:inputText id="nivelEstudiosMax" value="#{ofertasController.nivelEstudiosMax}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nivelEstudiosMax}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nit}" for="nit" />
+                        <p:selectOneMenu id="nit" value="#{ofertasController.nit}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nit}">
+                            <f:selectItem  itemLabel="---" itemValue="" />
+                            <f:selectItems value="#{empresasController.empresas}" var="emp" itemLabel="#{emp.nombre}" itemValue="#{emp.nit}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <br />
+                    <p:commandButton value="Actualizar" icon="ui-icon-disk" 
+                                 update="growl"
+                                 action="#{ofertasController.doUpdate(actionEvent)}"
+                                 ajax="false">
+                    <p:resetInput target="form"/>
+                   </p:commandButton>
+                    <p:commandButton action="#{empresasController.prepareList}" value="#{bundle.CreateEmpresasShowAllLink}" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="#{bundle.CreateEmpresasIndexLink}"/>
+                </h:form>
+            </p:fieldset>  
+        </ui:define>
+    </ui:composition>
+</html>
+

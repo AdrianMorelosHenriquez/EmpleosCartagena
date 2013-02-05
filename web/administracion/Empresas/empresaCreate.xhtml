@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <div class="message blue">
+                Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
+                El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
+            </div>
+            <br/>
+            <p:fieldset id="empresaPanel" legend="Crear Empresa"> 
+                <h:form id="form">
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Nit" for="nit" />
+                        <p:inputText id="nit" value="#{empresasController.nit}"/>
+                        <p:message for="nit"/>
+                    </h:panelGrid>
+                    <br/>   
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Nombre" for="nombre" />
+                        <p:inputText id="nombre" value="#{empresasController.nombre}"  />
+                        <p:message for="nombre"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Actividad" for="actividad" />
+                        <p:inputText id="actividad" value="#{empresasController.actividad}"  />
+                        <p:message for="actividad"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Nombre de Contacto" for="nombreContacto" />
+                        <p:inputText id="nombreContacto" value="#{empresasController.nombreContacto}" />
+                        <p:message for="nombreContacto"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Representante Legal" for="representanteLegal" />
+                        <p:inputText id="representanteLegal" value="#{empresasController.repLegal}" />
+                        <p:message for="representanteLegal"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Telefono de Contacto" for="telefonoContacto" />
+                        <p:inputText id="telefonoContacto" value="#{empresasController.telContacto}"  />
+                        <p:message for="telefonoContacto"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Celular de Contacto" for="celularContacto" />
+                        <p:inputText id="celularContacto" value="#{empresasController.celContacto}"  />
+                        <p:message for="celularContacto"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Direccion" for="direccion" />
+                        <p:inputText id="direccion" value="#{empresasController.direccion}"  />
+                        <p:message for="direccion"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Correo Electronico" for="email" />
+                        <p:inputText id="email" value="#{empresasController.email}" />
+                        <p:message for="email"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="700"> 
+                        <h:outputLabel value="Descripcion" for="descripcion" />
+                        <p:editor id="descripcion" value="#{empresasController.descripcion}" width="670"/>
+                        <p:message for="descripcion"/>
+                    </h:panelGrid>
+                    <br />
+                    <p:commandButton value="Guardar" icon="ui-icon-disk" 
+                                     update="empresaPanel"
+                                     action="#{empresasController.doCreate(actionEvent)}"
+                                     ajax="false">
+                        <p:resetInput target="form"/>
+                    </p:commandButton>
+                    <p:commandButton action="#{empresasController.toList}" value="Listar Empresas" immediate="true"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="Regresar al Inicio"/>
+                </h:form>
+            </p:fieldset>  
+        </ui:define>
+    </ui:composition>
+</html>
+

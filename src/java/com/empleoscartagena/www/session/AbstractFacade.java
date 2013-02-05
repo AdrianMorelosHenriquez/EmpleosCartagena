@@ -6,6 +6,7 @@ package com.empleoscartagena.www.session;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -34,6 +35,11 @@ public abstract class AbstractFacade<T> {
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
+    }
+    public Object getSingleResult(String query) {
+        EntityManager em = this.getEntityManager();
+        Query q = em.createQuery(query);
+        return q.getSingleResult();
     }
 
     public List<T> findAll() {

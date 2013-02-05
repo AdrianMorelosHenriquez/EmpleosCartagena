@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <div class="message blue">
+                Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
+                El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
+            </div>
+            <br/>
+            <p:fieldset legend="Listas de Ofertas">
+                <h:form styleClass="jsfcrud_list_form" id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:dataTable id="ofertasDT" value="#{ofertasController.ofertas}" var="ofe" 
+                                 paginator="true" rows="8" lazy="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Empresa"/>
+                            </f:facet>
+                            <h:outputText value="#{ofe.nit.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cargo"/>
+                            </f:facet>
+                            <h:outputText value="#{ofe.cargo}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton id="viewButton" 
+                                             update=":form:OffDisplay"
+                                             oncomplete="viewOffDialog.show()"
+                                             icon="ui-icon-search" 
+                                             title="ver datos de Oferta" 
+                                             >  
+                                <f:setPropertyActionListener value="#{ofe}" target="#{ofertasController.selected}" />  
+                            </p:commandButton>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton id="editButton" ajax="false" 
+                                             icon="ui-icon-pencil" 
+                                             title="Editar Oferta" 
+                                             action="#{ofertasController.goEditPage(actionEvent)}">  
+                                <f:setPropertyActionListener value="#{ofe}" target="#{ofertasController.selected}" />  
+                            </p:commandButton>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton id="deleteButton" 
+                                             update=":form:Display" 
+                                             oncomplete="deleteOffDialog.show()"
+                                             icon="ui-icon-trash" 
+                                             title="Eliminar Oferta">  
+                                <f:setPropertyActionListener value="#{ofe}" target="#{ofertasController.selected}" />  
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog id="deleteDlg" header="DETALLES DE LA OFERTA" 
+                              widgetVar="deleteOffDialog" resizable="false"  
+                              width="400" showEffect="fade" hideEffect="explode" modal="true">
+                        <h:panelGrid id="Display" columns="2" cellpadding="4">  
+                            <h:outputText value="Empresa:" />  
+                            <h:outputText value="#{ofertasController.selected.nit.nombre}" />  
+                            <h:outputText value="Cargo:" />
+                            <h:outputText value="#{ofertasController.selected.cargo}"/>
+                        </h:panelGrid>
+                        <p style=" font-weight:  bold">¿Realmente Desea Borrarla?</p>
+                        <p:commandButton value="SI" id="confirmDeleteButton" 
+                                         update=":form:ofertasDT,growl" 
+                                         oncomplete="deleteProfDialog.hide()"
+                                         actionListener="#{ofertasController.doDelete(e)}">
+                        </p:commandButton>
+                        <p:commandButton value="NO" id="deniedDeleteButton" 
+                                         immediate="true"
+                                         oncomplete="deleteProfDialog.hide()"
+                                         />
+                    </p:dialog>
+                    <p:dialog id="ViewDlg" header="DETALLES DE LA OFERTA" 
+                              widgetVar="viewOffDialog" resizable="false"  
+                              width="400" showEffect="fade" hideEffect="explode" modal="true">
+                        <h:panelGrid id="OffDisplay" columns="2" cellpadding="4">  
+                            <h:outputText value="Fecha de Inicio:" />  
+                            <h:outputText value="#{ofertasController.selected.fechaStart}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>    
+                            <h:outputText value="Fecha Final:" />
+                            <h:outputText value="#{ofertasController.selected.fechaEnd}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>   
+                            <h:outputText value="Cargo:" />
+                            <h:outputText value="#{ofertasController.selected.cargo}"/>
+                            <h:outputText value="Empresa:" />
+                            <h:outputText value="#{ofertasController.selected.nit.nombre}"/>
+                            <h:outputText value="Estudios Maximos:" />
+                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMax}"/>
+                            <h:outputText value="Estudios Minimos:" />
+                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMin}"/>
+                            <h:outputText value="Salario:" />
+                            <h:outputText value="#{ofertasController.selected.salario}"/>
+                            <h:outputText value="Descripcion:" />
+                            <h:outputText value="#{ofertasController.selected.descripcion}"/>
+                            <h:outputText value="Capacidades:" />
+                            <p:dataList value="#{ofertasController.selected.capacidadesPorOfertasCollection}" var="cap" itemType="disc">  
+                                #{cap.capacidad.nombre}
+                            </p:dataList>
+
+                        </h:panelGrid>
+                    </p:dialog>
+                    <br />
+                    <p:commandButton action="#{ofertasController.toCreate}" value="Crear Nueva Oferta"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="Regresar al Inicio"/>
+
+
+                </h:form>
+            </p:fieldset>      
+        </ui:define>
+    </ui:composition>
+</html>
+

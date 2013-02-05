@@ -200,6 +200,10 @@ public class Ofertas implements Serializable {
     public void setNit(Empresas nit) {
         this.nit = nit;
     }
+    public String getNombre()
+    {
+     return nit.getNombre() +" "+cargo;
+    }
 
     @XmlTransient
     public Collection<ProfesionesPorOferta> getProfesionesPorOfertaCollection() {
