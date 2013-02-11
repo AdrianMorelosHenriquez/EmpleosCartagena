@@ -21,10 +21,12 @@
                 <p:menuitem value="Asignar Capacidades" url="/faces/empleador/capacidadesOf.xhtml" icon="ui-icon-search" />
                 <p:menuitem value="Asignar Profesiones" url="/faces/empleador/profesionesOf.xhtml" icon="ui-icon-search" />
             </p:menubar>
+              <br/>
           </h:form>    
-            <br/>
-            <p:fieldset id="ofertasPanel" legend="Crear Oferta"> 
+            <p:fieldset id="ofertasPanel" legend="Crear ofertas"> 
                 <h:form id="form">
+                    <p:messages id="messages" showDetail="true"/>                     
+                    <br/>
                     <h:panelGrid columns="1" width="700"> 
                         <h:outputLabel value="Fecha de Inicio" for="fechaStart" />
                         <p:calendar id="fechaStart" value="#{ofertasController.fechaStart}"  />
@@ -37,10 +39,26 @@
                         <p:message for="fechaEnd"/>
                     </h:panelGrid>
                     <br/>
+                    <h:panelGrid columns="1" width="700">
+                        <h:outputLabel value="Profesiones" for="Profesiones" />
+                        <p:selectOneMenu id="Profesiones" value="#{ofertasController.idProfesiones}">
+                            <f:selectItem itemValue="" itemLabel="---"/>
+                            <f:selectItems value="#{ofertasController.profesiones}" var="pro" itemLabel="#{pro.nombre}" itemValue="#{pro.id}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <br/>
                     <h:panelGrid columns="1" width="700"> 
                         <h:outputLabel value="Cargo" for="cargo" />
                         <p:inputText id="cargo" value="#{ofertasController.cargo}"  />
                         <p:message for="cargo"/>
+                    </h:panelGrid>
+                    <br/>
+                     <h:panelGrid columns="1" width="700">
+                        <h:outputLabel value="Capacidades" for="capacidad" />
+                        <h:selectManyMenu  id="capacidad" value="#{ofertasController.idCapacidades}" style="height: 200px;" converter="javax.faces.Integer">
+                            <f:selectItem itemValue="" itemLabel="---"/>
+                            <f:selectItems value="#{ofertasController.capacidades}" var="cap" itemLabel="#{cap.nombre}" itemValue="#{cap.idcapacidad}"/>
+                        </h:selectManyMenu>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
@@ -57,20 +75,26 @@
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
                         <h:outputLabel value="Descripcion" for="descripcion" />
-                        <p:editor id="descripcion" value="#{ofertasController.descripcion}" />
+                        <p:editor id="descripcion" value="#{ofertasController.descripcion}" width="670" />
                         <p:message for="descripcion"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="Nivel de Estudios Minimos" for="nivelEstudiosMin" />
-                        <p:inputText id="nivelEstudiosMin" value="#{ofertasController.nivelEstudiosMin}" />
-                        <p:message for="nivelEstudiosMin"/>
+                    <h:panelGrid columns="1" width="700">
+                        <h:outputLabel value="Nivel de Estudios Maximos" for="EstMaximos" />
+                        <p:selectOneMenu id="EstMaximos" value ="#{ofertasController.nivelEstudiosMax}">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudiosMax}"/>
+                        </p:selectOneMenu>
+                        <p:message for="EstMaximos"/>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="Nivel de Estudios Maximos" for="nivelEstudiosMax" />
-                        <p:inputText id="nivelEstudiosMax" value="#{ofertasController.nivelEstudiosMax}" />
-                        <p:message for="nivelEstudiosMax"/>
+                       <h:outputLabel value="Nivel de Estudios Minimos" for="EstMinimos" />
+                       <p:selectOneMenu id="EstMinimos" value ="#{ofertasController.nivelEstudiosMin}">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudiosMin}"/>
+                        </p:selectOneMenu>
+                        <p:message for="EstMinimos"/>
                     </h:panelGrid>
                     <br />
                     <h:panelGrid columns="1" width="700"> 
@@ -83,13 +107,13 @@
                     </h:panelGrid>
                     <br />
                     <p:commandButton value="Guardar" icon="ui-icon-disk" 
-                                     update="ofertasPanel"
+                                     update="ofertasPanel,messages"
                                      action="#{ofertasController.doCreate(actionEvent)}"
                                      ajax="false"
                                      >
                         <p:resetInput target="form"/>
                     </p:commandButton>
-                    <p:commandButton action="#{ofertasController.toList}" value="Listar Empresa" immediate="true"/>
+   
                     <br />
                     <br />
                     <h:link outcome="/index" value="Regresar al Inicio"/>
