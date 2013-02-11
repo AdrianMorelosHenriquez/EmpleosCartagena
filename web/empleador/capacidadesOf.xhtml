@@ -15,11 +15,13 @@
                 Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
                 El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
             </div>
-            <p:menubar>
-                <p:menuitem value="Oferta" url="/faces/empleador/Ofertas.xhtml" icon="ui-icon-star"/>  
-                <p:menuitem value="Asignar Capacidades" url="/empleador/capacidadesOf.xhtml" icon="ui-icon-search" />
-                <p:menuitem value="Asignar Profesiones" url="/faces/empleador/profesionesOf.xhtml" icon="ui-icon-search" />
-            </p:menubar>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Oferta" url="/faces/empleador/Ofertas.xhtml" icon="ui-icon-star"/>  
+                    <p:menuitem value="Asignar Capacidades" url="/empleador/capacidadesOf.xhtml" icon="ui-icon-search" />
+                    <p:menuitem value="Asignar Profesiones" url="/faces/empleador/profesionesOf.xhtml" icon="ui-icon-search" />
+                </p:menubar>
+            </h:form>    
             <br/>
             <p:fieldset legend="Asignar Capacidades"> 
                 <h:form id="form">
@@ -27,7 +29,8 @@
                     <h:panelGrid columns="1" width="700">
                         <h:outputLabel value="Capacidades" for="capacidad" />
                         <p:selectOneMenu  value="#{capacidadesPorOfertasController.idCapacidades}">
-                            <f:selectItems value="#{capacidadesPorOfertasController.capacidades}" var="capa" itemLabel="#{capa.nombre}" itemValue="#{capa.idcapacidad}"/>
+                            <f:selectItem itemValue="" itemLabel="---"/>
+                            <f:selectItems value="#{capacidadesPorOfertasController.capacidades}" var="cap" itemLabel="#{cap.nombre}" itemValue="#{cap.idcapacidad}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <br/>

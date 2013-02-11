@@ -20,41 +20,49 @@
                 <h:form id="form">
                     <p:growl id="growl"/>  
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_fechaStart}" for="fechaStart" />
+                        <h:outputLabel value="Fecha de Inicio" for="fechaStart" />
                         <p:calendar id="fechaStart" value="#{ofertasController.fechaStart}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_fechaStart}"/>
                     </h:panelGrid>
                     <br/>   
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_fechaEnd}" for="fechaEnd" />
+                        <h:outputLabel value="Fecha Final" for="fechaEnd" />
                         <p:calendar id="fechaEnd" value="#{ofertasController.fechaEnd}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_fechaEnd}"/>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_cargo}" for="cargo" />
+                        <h:outputLabel value="Cargo" for="cargo" />
                         <p:inputText id="cargo" value="#{ofertasController.cargo}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_cargo}"/>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_salario}" for="salario" />
+                        <h:outputLabel value="Salario" for="salario" />
                         <p:inputText id="salario" value="#{ofertasController.salario}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_salario}"/>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_descripcion}" for="descripcion" />
+                        <h:outputLabel value="Descripcion" for="descripcion" />
                         <p:editor id="descripcion" value="#{ofertasController.descripcion}"  width="670" required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_descripcion}"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nivelEstudiosMin}" for="nivelEstudiosMin" />
-                        <p:inputText id="nivelEstudiosMin" value="#{ofertasController.nivelEstudiosMin}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nivelEstudiosMin}"/>
+                   <h:panelGrid columns="1" width="700">
+                        <h:outputLabel value="Nivel de Estudios Maximos" for="EstMaximos" />
+                        <p:selectOneMenu id="EstMaximos" value ="#{ofertasController.nivelEstudiosMax}">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudiosMax}"/>
+                        </p:selectOneMenu>
+                        <p:message for="EstMaximos"/>
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nivelEstudiosMax}" for="nivelEstudiosMax" />
-                        <p:inputText id="nivelEstudiosMax" value="#{ofertasController.nivelEstudiosMax}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nivelEstudiosMax}"/>
+                       <h:outputLabel value="Nivel de Estudios Minimos" for="EstMinimos" />
+                       <p:selectOneMenu id="EstMinimos" value ="#{ofertasController.nivelEstudiosMin}">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudiosMin}"/>
+                        </p:selectOneMenu>
+                        <p:message for="EstMinimos"/>
                     </h:panelGrid>
                     <h:panelGrid columns="1" width="700"> 
-                        <h:outputLabel value="#{bundle.CreateOfertasLabel_nit}" for="nit" />
+                        <h:outputLabel value="Empresa" for="nit" />
                         <p:selectOneMenu id="nit" value="#{ofertasController.nit}"  required="true" requiredMessage="#{bundle.CreateOfertasRequiredMessage_nit}">
                             <f:selectItem  itemLabel="---" itemValue="" />
                             <f:selectItems value="#{empresasController.empresas}" var="emp" itemLabel="#{emp.nombre}" itemValue="#{emp.nit}"/>
@@ -67,10 +75,10 @@
                                  ajax="false">
                     <p:resetInput target="form"/>
                    </p:commandButton>
-                    <p:commandButton action="#{empresasController.prepareList}" value="#{bundle.CreateEmpresasShowAllLink}" immediate="true"/>
+                    <p:commandButton action="#{empresasController.prepareList}" value="Listar empresas" immediate="true"/>
                     <br />
                     <br />
-                    <h:link outcome="/index" value="#{bundle.CreateEmpresasIndexLink}"/>
+                    <h:link outcome="/index" value="Regresar al Menu"/>
                 </h:form>
             </p:fieldset>  
         </ui:define>
