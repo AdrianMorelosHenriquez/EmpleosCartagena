@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Capacidad.findAll", query = "SELECT c FROM Capacidad c"),
     @NamedQuery(name = "Capacidad.findByIdcapacidad", query = "SELECT c FROM Capacidad c WHERE c.idcapacidad = :idcapacidad"),
     @NamedQuery(name = "Capacidad.findByNombre", query = "SELECT c FROM Capacidad c WHERE c.nombre = :nombre")})
+
 public class Capacidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -144,7 +145,7 @@ public class Capacidad implements Serializable {
 
     @Override
     public String toString() {
-        return "com.empleoscartagena.www.entities.Capacidad[ idcapacidad=" + idcapacidad + " ]";
+        return nombre;
     }
     
 }

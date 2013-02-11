@@ -17,9 +17,14 @@
             <br/>
             <p:fieldset id="empresaPanel" legend="Crear Empresa"> 
                 <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <br/>
                     <h:panelGrid columns="1" width="700"> 
                         <h:outputLabel value="Nit" for="nit" />
-                        <p:inputText id="nit" value="#{empresasController.nit}"/>
+                        <p:inputText id="nit" value="#{empresasController.nit}">
+                            <p:ajax update="out" listener="#{empresasController.consult()}"/>  
+                        </p:inputText>
+                        <h:outputText id="out" value="#{empresasController.getconsult()}" /> 
                         <p:message for="nit"/>
                     </h:panelGrid>
                     <br/>   

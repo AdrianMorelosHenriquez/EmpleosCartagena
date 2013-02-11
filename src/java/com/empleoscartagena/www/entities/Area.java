@@ -148,7 +148,7 @@ public class Area implements Serializable {
 
     @Override
     public String toString() {
-        return "com.empleoscartagena.www.entities.Area[ idarea=" + idarea + " ]";
+        return nombre;
     }
     
 }

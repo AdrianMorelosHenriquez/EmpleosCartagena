@@ -144,7 +144,7 @@ public class Profesion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.empleoscartagena.www.entities.Profesion[ id=" + id + " ]";
+        return  nombre;
     }
     
 }

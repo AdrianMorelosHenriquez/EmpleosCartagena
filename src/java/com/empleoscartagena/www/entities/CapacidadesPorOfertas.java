@@ -43,6 +43,7 @@ public class CapacidadesPorOfertas implements Serializable {
     @JoinColumn(name = "capacidad", referencedColumnName = "idcapacidad", nullable = false)
     @ManyToOne(optional = false)
     private Capacidad capacidad;
+    public static final String FIND_USER_BY_IDOFERTAS = "DatosPersonales.findBytipoynumerodocumento";
 
     public CapacidadesPorOfertas() {
     }

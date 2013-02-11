@@ -15,11 +15,11 @@
                 El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
             </div>
             <br/>
-            <p:fieldset legend="Lista de Empresas" style="width: 700px;">
+            <p:fieldset legend="Lista de Empresas" style="width: 950px;">
                 <h:form id="form"  prependId="false">
                     <p:growl id="growl"/>  
                     <p:dataTable id="empresasDT" value="#{empresasController.empresas}" var="empresa"
-                                 style="width:700px; border: 1px solid;"
+                                 style="width:950px;"
                                  paginator="true" rows="8" lazy="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                                  {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">

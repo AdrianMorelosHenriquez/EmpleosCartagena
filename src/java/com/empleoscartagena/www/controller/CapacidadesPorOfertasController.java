@@ -92,6 +92,10 @@ public class CapacidadesPorOfertasController implements Serializable {
     public void setIdCapacidades(Integer idCapacidades) {
         this.idCapacidades = idCapacidades;
     }
+    public void setCapacidad(List<Capacidad> capacidades)
+    {
+     this.capacidades = capacidades;
+    }
 
     public List<Capacidad> getCapacidades() {
         capacidades = ejbCFacade.findAll();
@@ -100,9 +104,11 @@ public class CapacidadesPorOfertasController implements Serializable {
 
     public void doCreate(ActionEvent actionEvent) {
         //Ofertas tmpOf = ejbOFacade.find(this.idOfertas.intValue());
+ 
         try {
-            Ofertas tmpO = ejbOFacade.find(this.idOfertas.intValue());
-            Capacidad tmpC = ejbCFacade.find(idCapacidades.intValue());
+           Ofertas tmpO = ejbOFacade.find(this.idOfertas.intValue());
+            
+            Capacidad tmpC = ejbCFacade.find(this.idCapacidades.intValue());
             if (tmpO != null && tmpC != null) {
                 newCapacidades = new CapacidadesPorOfertas();
                 newCapacidades.setOferta(tmpO);
@@ -123,7 +129,7 @@ public class CapacidadesPorOfertasController implements Serializable {
             }
         } catch (Exception e) {
             FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo asignar la capacidad a la oferta" + e + "", null);
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo asignar la capacidad a la oferta" + e + " ", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }

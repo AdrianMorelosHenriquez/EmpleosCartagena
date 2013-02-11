@@ -27,7 +27,7 @@
                     <p:growl id="growl"/>  
                     <h:panelGrid columns="1" width="700">
                         <h:outputLabel value="Categoria" for="categoria" />
-                        <p:selectOneMenu id="categoria" value="#{profesionController.selected.categoria}" title="#{bundle.CreateProfesionTitle_categoria}" required="true" requiredMessage="#{bundle.CreateProfesionRequiredMessage_categoria}">
+                        <p:selectOneMenu id="categoria" value="#{profesionController.selected.categoria}"  required="true" requiredMessage="#{bundle.CreateProfesionRequiredMessage_categoria}">
                             <f:selectItems value="#{categoriaDeProfesionesController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>

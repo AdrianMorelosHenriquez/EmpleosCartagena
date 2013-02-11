@@ -10,79 +10,120 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title><ui:insert name="title">Empleabilidad</ui:insert></title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
             </f:facet>
         </h:head>
         <h:body>
-            <div id="wrapper"> 
-                <div id="container">  
-                    <div id="top">
-                        <div id="logo" >logotipo</div>
-                        <div class="slogan">Líderes en ofertas de empleo y oportunidades laborales en Latinoamérica.</div>
-                        <div id="menu">
-                            <h:form>
-                                <p:menubar>
-                                    <p:submenu label="Hojas de vida" icon="ui-icon-document">
-                                        <p:menuitem value="Crear" url="/faces/aspirantes/datosPersonales/Create.xhtml" icon="ui-icon-pencil" />
-                                        <p:menuitem value="Listar" url="/faces/aspirantes/datosPersonales/List.xhtml" icon="ui-icon-help" />
-                                        <p:menuitem value="Filtro" url="#" icon="ui-icon-gear" />
-                                        <p:separator />
-                                        <p:menuitem value="Quit" url="#" />
-                                    </p:submenu>
-                                    <p:submenu label="Administrador" icon="ui-icon-document">
-                                        <p:menuitem value="Crear Empresa" url="/faces/administracion/Empresas/empresaCreate.xhtml" icon="ui-icon-pencil" />
-                                        <p:menuitem value="Listar Empresa" url="/faces/administracion/Empresas/empresaList.xhtml" icon="ui-icon-help" />
-                                        <p:menuitem value="Profesiones y Conocimientos" url="/faces/administracion/Profesiones/Categorias.xhtml" icon="ui-icon-help" />
-                                        <p:menuitem value="Filtro" url="#" icon="ui-icon-gear" />
-                                        <p:separator />
-                                        <p:menuitem value="Quit" url="#" />
-                                    </p:submenu>
-                                    <p:submenu label="Empleador" icon="ui-icon-document">
-                                        <p:menuitem value="Crear Oferta" url="/faces/empleador/Ofertas.xhtml" icon="ui-icon-pencil" />
-                                        <p:menuitem value="Listar Oferta" url="/faces/empleador/ofertasList.xhtml" icon="ui-icon-help" />
-                                        <p:menuitem value="Filtro" url="#" icon="ui-icon-gear" />
-                                        <p:separator />
-                                        <p:menuitem value="Quit" url="#" />
-                                    </p:submenu>
-                                    <f:facet name="options">
-                                        <p:inputText style="margin-right:10px"/>
-                                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
-                                    </f:facet>
-                                </p:menubar>
-                            </h:form>
-                        </div>
-                    </div>  
-                    <div id="left"> 
-                        <div class="box search">
-                            <div class="content">
-                                <form action="">
-                                    <input type="text" value="" placeholder="" />
-                                    <button type="submit"></button>
-                                </form>
+            <div id="container">  
+                <div id="top">
+                    <div class="container" id="header">
+                        <div class="row">
+                            <div class="two columns push-ten">
+                                <div class="mod modSocial colorSchemeCyan" data-connectors="1">
+                                    <ul>
+                                        <li><a class="twitter" href="javascript:void(0);">twitter</a></li>
+                                        <li><a class="facebook" href="javascript:void(0);">facebook</a></li>
+                                        <li><a class="skype" href="javascript:void(0);">skype</a></li>
+                                        <li><a class="dribbble" href="javascript:void(0);">dribbble</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <!--
-                        <div class="box statics">
-                            <div class="content">
-                                <ul>
-                                    <li><h2>Mi Cuenta</h2></li>
-                                    <li><h:link outcome="/aspirante/List" value="Lista de Aspirantes"/><div class="info red"><span>999</span></div></li>
-                                    <li>Ver Postulaciones<div class="info blue"><span>654</span></div></li>
-                                    <li>Profesiones por Aspirantes<div class="info green"><span>7</span></div></li>
-                                    <li>Lista de Aspirantes <div class="info red"><span>999</span></div></li>
-                                    <li>Evaluaciones<div class="info blue"><span>654</span></div></li>
-                                    <li>Capacidades por estudios<div class="info blue"><span>654</span></div></li>
-                                    <li>Capacidad por experiencias<div class="info green"><span>7</span></div></li>
-                                    <li>Capacidades por ofertas<div class="info black"><span>999</span></div></li>
-                                    <li>Salir</li>
-                                </ul>
+                        <div class="row">
+                            <div class="two columns">
+                                <div class="mod modLogo colorSchemeCyan" data-connectors="1">
+                                    <h2>
+                                        <a href="index.html">Logotipo</a>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="ten columns">
+                                <div class="mod modNav right colorSchemeCyan" data-connectors="1">
+                                    <ul class="nav-bar">
+                                        <li>
+                                            <a class="main current" href="index.html">POSTULANTES</a>
+                                        </li>
+                                        <li>
+                                            <a class="main" href="/faces/empleadores/Ofertas.xhtml">EMPLEADORES</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        -->
-                    </div>  
-                    <div id="right">  
-                        <ui:insert name="body">Default Body</ui:insert>
-                    </div>  
+                    </div>
                 </div>  
+                <div class="container content">
+                    <div class="row">
+                        <ui:insert name="body">Default Body</ui:insert>
+                    </div>
+                </div> 
+                <div class="container">
+                    <footer>
+                        <div class="wrap clearfix">
+                            <!--column-->
+                            <article class="one-fourth">
+                                <h3>Empleabilidad</h3>
+                                <p>Ofertas de empleo y oportunidades laborales en Latinoamérica.</p>
+                                <p><em>P:</em> Cartagena-Colombia</p>
+                                <p><em>E:</em> 2013</p>
+                            </article>
+                            <!--//column-->
+
+                            <!--column-->
+                            <article class="one-fourth">
+                                <h3>Atención al cliente</h3>
+                                <ul>
+                                    <li><a href="#" title="Faq">Faq</a></li>
+                                    <li><a href="#" title="How do I make a reservation?">¿Cómo buscar empleo?</a></li>
+                                    <li><a href="#" title="Payment options">¿Cómo postular mi Hoja de Vida?</a></li>
+                                    <li><a href="#" title="Booking tips">¿Cómo postular mi oferta de empleo?</a></li>
+                                </ul>
+                            </article>
+                            <!--//column-->
+
+                            <!--column-->
+                            <article class="one-fourth">
+                                <h3>Siguenos</h3>
+                                <ul class="social">
+                                    <li class="facebook"><a href="#" title="facebook">facebook</a></li>
+                                    <li class="youtube"><a href="#" title="youtube">youtube</a></li>
+                                    <li class="rss"><a href="#" title="rss">rss</a></li>
+                                    <li class="linkedin"><a href="#" title="linkedin">linkedin</a></li>
+                                    <li class="googleplus"><a href="#" title="googleplus">googleplus</a></li>
+                                    <li class="twitter"><a href="#" title="twitter">twitter</a></li>
+                                    <!--<li class="vimeo"><a href="#" title="vimeo">vimeo</a></li>
+                                    <li class="pinterest last"><a href="#" title="pinterest">pinterest</a></li>-->
+                                </ul>
+                            </article>
+                            <!--//column-->
+
+                            <!--column-->
+                            <article class="one-fourth last">
+                                <h3>Suscribete para recibir información de ofertas</h3>
+                                <form id="newsletter" action="newsletter.php" method="post">
+                                    <fieldset>
+                                        <input type="email" id="newsletter_signup" name="newsletter_signup" placeholder="Enter your email here"/>
+                                        <input type="submit" id="newsletter_submit" name="newsletter_submit" value="Signup" class="gradient-button"/>
+                                    </fieldset>
+                                </form>
+                            </article>
+                            <!--//column-->
+
+                            <section class="bottom">
+                                <p class="copy">Copyright 2013 Empleabilidad. Todos los derechos reservado</p>
+                                <nav>
+                                    <ul>
+                                        <li class="first"><a href="#" title="About us">Sobre Nosotros</a></li>
+                                        <li><a href="contact.html" title="Contact">Contactos</a></li>
+                                        <li><a href="#" title="FAQ">FAQ</a></li>
+                                        <li><a href="#" title="Terms &amp; Conditions">Términos y Condiciones</a></li>
+                                        <li><a href="#" title="Privacy statement">Política de privacidad</a></li>
+                                    </ul>
+                                </nav>
+                            </section>
+                        </div>
+                    </footer>
+                </div>
             </div>
         </h:body>
     </f:view>

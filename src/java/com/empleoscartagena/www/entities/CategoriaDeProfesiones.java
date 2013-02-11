@@ -109,7 +109,7 @@ public class CategoriaDeProfesiones implements Serializable {
 
     @Override
     public String toString() {
-        return "com.empleoscartagena.www.entities.CategoriaDeProfesiones[ idcategoria=" + idcategoria + " ]";
+        return nombreCategoria;
     }
     
 }

@@ -1,17 +1,24 @@
 package com.empleoscartagena.www.controller;
+
+import com.empleoscartagena.www.controller.util.JsfUtil;
+import com.empleoscartagena.www.entities.DatosPersonales;
 import com.empleoscartagena.www.entities.Empresas;
 import com.empleoscartagena.www.session.EmpresasFacade;
 import java.awt.event.ActionEvent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -24,7 +31,7 @@ import javax.validation.constraints.Size;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "empresasController")
-@SessionScoped
+@RequestScoped
 public class EmpresasController implements Serializable {
 
     private Empresas selected = new Empresas();
@@ -80,14 +87,14 @@ public class EmpresasController implements Serializable {
         }
         return selected;
     }
-      public void setSelected(Empresas selected) {
+
+    public void setSelected(Empresas selected) {
         this.selected = selected;
     }
-    
-      
+
     public Empresas getNewEmpresas() {
         if (newEmpresas == null) {
-            
+
             newEmpresas = new Empresas();
             //selectedItemIndex = -1;
         }
@@ -101,17 +108,16 @@ public class EmpresasController implements Serializable {
     private EmpresasFacade getFacade() {
         return ejbFacade;
     }
-   /* public String verificarNit()
-    {
-     Object result = ejbFacade.getSingleResult("SELECT e FROM Empresas e WHERE e.nit = :"+this.nit+"");
-     if(result!=null){
-       return "el Nit ya esta en uso";
+
+    public String verificarNit() {
+        empresas = ejbFacade.findAll();
+        for (Empresas emp : empresas) {
+            if (emp.getNit().equals(this.nit)) {
+                return "Nit en uso";
+            }
+        }
+        return "el Nit no esta uso";
     }
-     else{
-      return "el Nit puede ser usado";
-     }
-   }
-   */ 
 
     public void doCreate(ActionEvent actionEvent) {
         String nombre_empresa = nombre;
@@ -187,13 +193,12 @@ public class EmpresasController implements Serializable {
                 descripcion = null;
                 repLegal = null;
 
-                }
-                FacesMessage message =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "La Empresa " + selected.getNombre() + " ha sido salvada", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
-
             }
-         catch (Exception e) {
+            FacesMessage message =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "La Empresa " + selected.getNombre() + " ha sido salvada", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
+        } catch (Exception e) {
             FacesMessage message =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "La Empresa " + selected.getNombre() + " pudo no haberse salvado", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -201,7 +206,8 @@ public class EmpresasController implements Serializable {
         }
         return null;
     }
-     public String goEditPage(ActionEvent actionEvent) {
+
+    public String goEditPage(ActionEvent actionEvent) {
         nit = selected.getNit();
         nombre = selected.getNombre();
         actividad = selected.getActividad();
@@ -212,17 +218,41 @@ public class EmpresasController implements Serializable {
         telContacto = selected.getTelefonoContacto();
         celContacto = selected.getCelularContacto();
         email = selected.getEmail();
-        
-        return "ofertasEdit";
-    }
-     public List<Empresas> getEmpresas()
-     {
-     empresas = new ArrayList<Empresas>();    
-     empresas = ejbFacade.findAll();
-     return empresas;
-     }
 
-  
+        return "empresaEdit";
+    }
+
+    public List<Empresas> getEmpresas() {
+        empresas = new ArrayList<Empresas>();
+        empresas = ejbFacade.findAll();
+        return empresas;
+    }
+
+    public String consult() {
+        return "El nit ya ha sido registrado";
+    }
+
+    public String getconsult() {
+       
+        try {
+           String Nit = this.nit; 
+           Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("nit",Nit);
+            Empresas emp = new Empresas();
+            emp = getFacade().findOneResult(this.selected.FIND_USER_BY_NIT, parameters);
+            if (emp != null) {
+                JsfUtil.addSuccessMessage("el Nit ya ha sido registrado.");
+                return "El Nit ya ha sido registrado.";
+            } else {
+                return "El Nit "+ Nit +" se puede usar" ;
+            }
+
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
     public int getPageSize() {
         return pageSize;
     }
@@ -310,12 +340,12 @@ public class EmpresasController implements Serializable {
     public void setDescripcion(String desripcion) {
         this.descripcion = desripcion;
     }
-    public String toCreate()
-    {
-    return "empresaCreate";
+
+    public String toCreate() {
+        return "empresaCreate";
     }
-     public String toList()
-    {
-    return "empresaList";
+
+    public String toList() {
+        return "empresaList";
     }
 }

@@ -11,7 +11,32 @@
             <h:outputText value="Empleabilidad"></h:outputText>
         </ui:define>
         <ui:define name="body">
-   
+            <h:outputStylesheet library="css/default" name="default.css"  />
+            <h:outputStylesheet library="css/default" name="nivo-slider.css"  />
+            <div id="wrapper">
+                <div class="slider-wrapper theme-default">
+                    <div id="slider" class="nivoSlider">
+                        <h:graphicImage library="imagenes" name="slide-2.jpg" />
+                        <h:graphicImage library="imagenes" name="slide-3.jpg" />
+                        <!--
+                        <img src="images/toystory.jpg" data-thumb="images/toystory.jpg" alt="" />
+                        <img src="images/walle.jpg" data-thumb="images/walle.jpg" alt="" data-transition="slideInLeft" />
+                        <img src="images/nemo.jpg" data-thumb="images/nemo.jpg" alt="" title="#htmlcaption" />
+                        -->
+                    </div>
+                </div>
+
+            </div>
+            <h:outputScript library="js" name="jquery-1.9.0.min.js" />
+            <h:outputScript library="js" name="jquery.nivo.slider.js" />
+
+            <script type="text/javascript">
+                $(window).load(function() {
+                    $('#slider').nivoSlider();
+                });
+            </script>
+            
+            
         </ui:define>
     </ui:composition>
 

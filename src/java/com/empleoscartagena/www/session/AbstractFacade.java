@@ -4,8 +4,11 @@
  */
 package com.empleoscartagena.www.session;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -41,7 +44,34 @@ public abstract class AbstractFacade<T> {
         Query q = em.createQuery(query);
         return q.getSingleResult();
     }
+    public T findOneResult(String namedQuery, Map<String, Object> parameters) {
 
+        T result = null;
+        String mensaje = "";
+
+        try {
+            Query query = getEntityManager().createNamedQuery(namedQuery);
+            // Method that will populate parameters if they are passed not null and empty
+            if (parameters != null && !parameters.isEmpty()) {
+                Iterator it = parameters.entrySet().iterator();
+
+                while (it.hasNext()) {
+                    Map.Entry e = (Map.Entry) it.next();
+                    Query setParameter = query.setParameter(e.getKey().toString(), e.getValue().toString());
+                    System.out.println(e.getKey() + " " + e.getValue());
+                }
+
+            }
+            result = (T) query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("No result found for named query: " + namedQuery);
+
+        } catch (Exception e) {
+            System.out.println("Error while running query: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

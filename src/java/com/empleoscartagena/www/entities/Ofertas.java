@@ -254,7 +254,7 @@ public class Ofertas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.empleoscartagena.www.entities.Ofertas[ idofertas=" + idofertas + " ]";
+        return getNombre();
     }
     
 }
