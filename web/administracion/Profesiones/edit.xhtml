@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="editProfesionForm" style="background: #feeebd">
+                <h2> <h:outputText value="#{controlProfesion.mensajesServicio[1]}" rendered="#{controlProfesion.isEditAction}"/>
+                     <h:outputText value="#{controlProfesion.mensajesServicio[0]}" rendered="#{!controlProfesion.isEditAction}"/>
+                </h2>
+                <p:panel id="editProfesionPanel" header="Actualizar/Crear La Profesión" style="margin-bottom:10px;">  
+                    <p:messages id="messages" />  
+                    <h:panelGrid columns="#{controlProfesion.isEditAction ? 2 : 3}">
+                        <h:outputText value="Código de la Profesión: *"/>
+                        <h:outputText value="#{controlProfesion.id}" 
+                                      rendered="#{controlProfesion.isEditAction}"/>
+                        <h:inputText id="codigo" value="#{controlProfesion.id}" rendered="#{!controlProfesion.isEditAction}" size="10"/>
+                        <p:message for="codigo" rendered="#{!controlProfesion.isEditAction}"/>
+                        <h:outputLabel for="name" value="Nombre de la profesión: *"/>
+                        <h:inputText id="name" value="#{controlProfesion.nombre}" size="45"/>
+                        <p:message for="name" rendered="#{!controlProfesion.isEditAction}"/>
+                        <h:outputText value="Categoría de la Profesión: *"/>
+                        <p:selectOneMenu id="listaCategorias" effect="fade"
+                                         value="#{controlProfesion.idCategoriaSelected}">
+                            <f:selectItem itemLabel="Escoja uno" itemValue=""/>
+                            <f:selectItems value="#{controlProfesion.categorias}"
+                                           var="categoria"
+                                           itemLabel="#{categoria.nombreCategoria}"
+                                           itemValue="#{categoria.idcategoria}"/>                                           
+                        </p:selectOneMenu>
+                        <p:message for="listaCategorias" rendered="#{!controlProfesion.isEditAction}"/>
+                    </h:panelGrid>  
+                </p:panel>
+                <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                 update="editProfesionPanel"
+                                 action="#{controlProfesion.handAction()}"
+                                 ajax="false"/>
+                <p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+                                 immediate="true" ajax="false" 
+                            action="#{controlProfesion.comeBack(actionEvent)}"/>
+            </h:form>             
+        </ui:define>
+      
+    </ui:composition>
+</html>
