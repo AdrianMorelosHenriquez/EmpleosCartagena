@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="areaForm" style="background: #feeebd" prependId="false">
+                <h2>SERVICIO PARA EL MANEJO DE ÁREAS DE DESEMPEÑO LABORAL</h2>
+                <p:dataTable id="areaDT" var="area" 
+                             value="#{controlArea.areas}"
+                             style="border:solid 1px"
+                             paginator="true" rows="8" lazy="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             >
+                    <f:facet name="header">  
+                        Áreas de desempeño Registradas
+                    </f:facet>
+                    <p:column headerText="Código" style="width: 10%">
+                        #{area.idarea}
+                    </p:column>
+                    <p:column headerText="Nombre" style="width: 26%">
+                        #{area.nombre}
+                    </p:column>
+                    <p:column headerText="Categoría Desempeño" style="width: 26%">
+                        #{area.categoria}
+                    </p:column>
+                    <p:column headerText="Profesión" style="width: 26%">
+                        #{area.profesion.nombre}
+                    </p:column>
+                    <p:column style="width: 4%">
+                        <p:commandButton id="viewButton" 
+                                         update=":areaForm:display" 
+                                         oncomplete="viewAreaDialog.show()" 
+                                         icon="ui-icon-search" title="Ver Datos del área de desempeño">  
+                            <f:setPropertyActionListener value="#{area}" target="#{controlArea.selected}" />  
+                        </p:commandButton>  
+                    </p:column>
+                    <p:column style="width: 4%">
+                        <p:commandButton id="editButton" ajax="false" 
+                                         icon="ui-icon-pencil" 
+                                         title="Editar Área de desempeño" 
+                                         action="#{controlArea.goEditPage(e)}">  
+                            <f:setPropertyActionListener value="#{area}" target="#{controlArea.selected}" />  
+                        </p:commandButton>  
+                    </p:column>
+                    <p:column style="width: 4%">
+                        <p:commandButton id="deleteButton" 
+                                         update=":areaForm:deleteDisplay" 
+                                         oncomplete="deleteAreaDialog.show()"
+                                         icon="ui-icon-trash" 
+                                         title="Borrar Área de desempeño">  
+                            <f:setPropertyActionListener value="#{area}" target="#{controlArea.selected}" />  
+                        </p:commandButton>  
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="newButton" ajax="false"
+                                         value="Nueva Área Desempeño" 
+                                         icon="ui-icon-plusthick"
+                                         title="Crear nueva área de desempeño"
+                                         action="#{controlArea.goCreatePage(actionEvent)}"
+                                         >
+                        </p:commandButton>
+                        <p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w" 
+                                 immediate="true" ajax="false" 
+                                 action="#{controlArea.comeBack(actionEvent)}"/>
+                    </f:facet>
+                </p:dataTable>
+                
+                <p:dialog id="deleteDlg" header="DETALLES DEL ÁREA DE DESEMPEÑO" 
+                          widgetVar="deleteAreaDialog" resizable="false"  
+                          width="400" showEffect="clip" hideEffect="fold">
+                    <h:panelGrid id="deleteDisplay" columns="2" cellpadding="4">  
+                        <h:outputText value="Código:" />  
+                        <h:outputText value="#{controlArea.selected.idarea}" />  
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{controlArea.selected.nombre}"/>
+                        <h:outputText value="Categoría del área:" />
+                        <h:outputText value="#{controlArea.selected.categoria}"/>
+                        <h:outputText value="Profesión del área de desempeño"/>
+                        <h:outputText value="#{controlArea.selected.profesion.nombre}"/>
+                    </h:panelGrid>
+                    <p style=" font-weight:  bold">¿Realmente Desea Borrarla?</p>
+                    <p:commandButton value="SI" id="confirmDeleteButton" 
+                                     update=":areaForm:areaDT" 
+                                     oncomplete="deleteAreaDialog.hide()"
+                                     actionListener="#{controlArea.doDelete(e)}">
+                    </p:commandButton>
+                    <p:commandButton value="NO" id="deniedDeleteButton" 
+                                     immediate="true"
+                                     oncomplete="deleteAreaDialog.hide()"
+                                     />
+                </p:dialog>
+
+                <p:dialog id="EditDlg" header="DETALLES DEL ÁREA DE DESEMPEÑO" 
+                          widgetVar="viewAreaDialog" resizable="false"  
+                          width="400" showEffect="clip" hideEffect="fold">
+                    <h:panelGrid id="display" columns="2" cellpadding="4">  
+                        <h:outputText value="Código:" />  
+                        <h:outputText value="#{controlArea.selected.idarea}" />  
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{controlArea.selected.nombre}"/>
+                        <h:outputText value="Categoría del área:" />
+                        <h:outputText value="#{controlArea.selected.categoria}"/>
+                        <h:outputText value="Profesión del área de desempeño"/>
+                        <h:outputText value="#{controlArea.selected.profesion.nombre}"/>
+                    </h:panelGrid> 
+                </p:dialog>
+            </h:form>
+        </ui:define>
+      
+    </ui:composition>
+</html>
