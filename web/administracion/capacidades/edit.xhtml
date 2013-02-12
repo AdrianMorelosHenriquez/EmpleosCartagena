@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Empleabilidad"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+                        <h:form id="editCapaForm" style="background: #feeebd">
+                <h2> <h:outputText value="#{controlCapacidad.mensajesServicio[1]}" rendered="#{controlCapacidad.isEditAction}"/>
+                     <h:outputText value="#{controlCapacidad.mensajesServicio[0]}" rendered="#{!controlCapacidad.isEditAction}"/>
+                </h2>
+                <p:panel id="editCapaPanel" header="Actualizar/Crear Capacidad laboral" style="margin-bottom:10px;">  
+                    <p:messages id="messages" />  
+                    <h:panelGrid columns="#{controlCapacidad.isEditAction ? 2 : 3}">
+                        <h:outputText value="Código de la capacidad laboral: *"/>
+                        <h:outputText value="#{controlCapacidad.idcapacidad}" rendered="#{controlCapacidad.isEditAction}"/>
+                        <h:inputText id="codigo" size="10" value="#{controlCapacidad.idcapacidad}" rendered="#{!controlCapacidad.isEditAction}"/>
+                        <p:message for="codigo" rendered="#{!controlCapacidad.isEditAction}"/>
+                        
+                        <h:outputLabel for="name" value="Nombre de la capacidad laboral: *"/>
+                        <h:inputText id="name" value="#{controlCapacidad.nombre}" size="45"/>
+                        <p:message for="name" rendered="#{!controlCapacidad.isEditAction}"/>
+                        
+                        <h:outputLabel for="areas" value="Área de desempeño Laboral: *"/>
+                        <h:selectOneMenu id="areas" value="#{controlCapacidad.idAreaSelected}">
+                            <f:selectItem itemLabel="Escoja uno" itemValue=""/>
+                            <f:selectItems value="#{controlCapacidad.areas}"
+                                           var="area"
+                                           itemLabel="#{area.nombre}"
+                                           itemValue="#{area.idarea}"/>                                           
+                        </h:selectOneMenu>
+                        <p:message for="areas" rendered="#{!controlCapacidad.isEditAction}"/>
+                    </h:panelGrid>  
+                </p:panel>
+                <p:commandButton value="Salvar" icon="ui-icon-disk" update="editCapaPanel"
+                                 action="#{controlCapacidad.handAction()}"
+                                 ajax="false">
+                    <p:resetInput target="editCapaPanel"/>
+                </p:commandButton>
+                <p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w" 
+                                 immediate="true" ajax="false" 
+                                 action="#{controlCapacidad.comeBack(actionEvent)}"/>
+            </h:form>               
+        </ui:define>
+      
+    </ui:composition>
+</html>
