@@ -18,7 +18,7 @@
             <br/>
             <p:fieldset legend="Lista de Ofertas">
                 <h:form styleClass="jsfcrud_list_form" id="form">
-                    <p:growl id="growl" showDetail="true"/>
+                    <p:messages id="messages" showDetail="true"/>
                     <p:dataTable id="ofertasDT" value="#{ofertasController.ofertas}" var="ofe" 
                                  paginator="true" rows="8" lazy="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
@@ -74,8 +74,8 @@
                         </h:panelGrid>
                         <p style=" font-weight:  bold">¿Realmente Desea Borrarla?</p>
                         <p:commandButton value="SI" id="confirmDeleteButton" 
-                                         update=":form:ofertasDT,growl" 
-                                         oncomplete="deleteProfDialog.hide()"
+                                         update=":form:ofertasDT,messages" 
+                                         oncomplete="deleteOffDialog.hide()"
                                          actionListener="#{ofertasController.doDelete(e)}">
                         </p:commandButton>
                         <p:commandButton value="NO" id="deniedDeleteButton" 
@@ -111,11 +111,18 @@
                             <p:dataList value="#{ofertasController.selected.capacidadesPorOfertasCollection}" var="cap" itemType="disc">  
                                 #{cap.capacidad.nombre}
                             </p:dataList>
+                            <h:outputText value="Profesiones:" />
+                            <p:dataList value="#{ofertasController.selected.profesionesPorOfertaCollection}" var="pro" itemType="disc">  
+                                #{pro.profesion.nombre}
+                            </p:dataList>
 
                         </h:panelGrid>
                     </p:dialog>
                     <br />
-                    <p:commandButton action="#{ofertasController.toCreate}" value="Crear Nueva Oferta"/>
+                    <p:commandButton action="#{ofertasController.toCreate()}" 
+                                     value="Crear Nueva Oferta"
+                                     immediate="true"
+                                     ajax="false"/>
                     <br />
                     <br />
                     <h:link outcome="/index" value="Regresar al Inicio"/>

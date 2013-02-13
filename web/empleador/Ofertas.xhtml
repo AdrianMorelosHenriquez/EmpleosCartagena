@@ -15,112 +15,108 @@
                 Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
                 El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
             </div> 
-          <h:form>  
-            <p:menubar>
-                <p:menuitem value="Oferta" url="/faces/empleador/Ofertas.xhtml" icon="ui-icon-star"/>  
-                <p:menuitem value="Asignar Capacidades" url="/faces/empleador/capacidadesOf.xhtml" icon="ui-icon-search" />
-                <p:menuitem value="Asignar Profesiones" url="/faces/empleador/profesionesOf.xhtml" icon="ui-icon-search" />
-            </p:menubar>
-              <br/>
-          </h:form>    
             <p:fieldset id="ofertasPanel" legend="Crear ofertas"> 
                 <h:form id="form">
                     <p:messages id="messages" showDetail="true"/>                     
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Fecha de Inicio" for="fechaStart" />
                         <p:calendar id="fechaStart" value="#{ofertasController.fechaStart}"  />
                         <p:message for="fechaStart"/>
-                    </h:panelGrid>
-                    <br/>   
-                    <h:panelGrid columns="1" width="700"> 
+                    </h:panelGrid>    
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Fecha Final" for="fechaEnd" />
                         <p:calendar id="fechaEnd" value="#{ofertasController.fechaEnd}"  />
                         <p:message for="fechaEnd"/>
                     </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700">
-                        <h:outputLabel value="Profesiones" for="Profesiones" />
-                        <p:selectOneMenu id="Profesiones" value="#{ofertasController.idProfesiones}">
-                            <f:selectItem itemValue="" itemLabel="---"/>
-                            <f:selectItems value="#{ofertasController.profesiones}" var="pro" itemLabel="#{pro.nombre}" itemValue="#{pro.id}"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Cargo" for="cargo" />
-                        <p:inputText id="cargo" value="#{ofertasController.cargo}"  />
+                        <p:inputText id="cargo" value="#{ofertasController.cargo}" style="width: 700px;"  />
                         <p:message for="cargo"/>
                     </h:panelGrid>
-                    <br/>
-                     <h:panelGrid columns="1" width="700">
-                        <h:outputLabel value="Capacidades" for="capacidad" />
-                        <h:selectManyMenu  id="capacidad" value="#{ofertasController.idCapacidades}" style="height: 200px;" converter="javax.faces.Integer">
-                            <f:selectItem itemValue="" itemLabel="---"/>
-                            <f:selectItems value="#{ofertasController.capacidades}" var="cap" itemLabel="#{cap.nombre}" itemValue="#{cap.idcapacidad}"/>
-                        </h:selectManyMenu>
-                    </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Años de Experiencia" for="expYears" />
-                        <p:inputText id="expYears" value="#{ofertasController.expYears}" />
+                        <p:inputText id="expYears" value="#{ofertasController.expYears}" style="width: 700px;" />
                         <p:message for="expYears"/>
                     </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
+                        <h:outputLabel value="Nivel de Estudios Maximos" for="EstMaximos" />
+                        <h:selectOneMenu id="EstMaximos" value ="#{ofertasController.nivelEstudiosMax}" style="width:200px;">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudios}"/>
+                        </h:selectOneMenu>
+                        <p:message for="EstMaximos"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
+                        <h:outputLabel value="Nivel de Estudios Minimos" for="EstMinimos" />
+                        <h:selectOneMenu id="EstMinimos" value ="#{ofertasController.nivelEstudiosMin}" style="width:200px;">
+                            <f:selectItem itemLabel="---" itemValue=""/>
+                            <f:selectItems value="#{ofertasController.estudios}"/>
+                        </h:selectOneMenu>
+                        <p:message for="EstMinimos"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
+                        <h:outputLabel value="Profesiones" for="Profesiones" />
+                        <h:selectManyMenu id="Profesiones" value="#{ofertasController.idProfesiones}" style="height: 200px;width: 240px;" converter="javax.faces.Integer">
+                            <f:selectItems value="#{ofertasController.profesiones}" var="pro" itemLabel="#{pro.nombre}" itemValue="#{pro.id}"/>
+                        </h:selectManyMenu>
+                        <p:message for="Profesiones"/>
+                    </h:panelGrid>
+                  <h:panelGrid columns="1" width="700" styleClass="row"> 
+                        <h:outputLabel value="Capacidades" for="capacidad" />
+                        <h:selectManyMenu id="capacidad"
+                                          value="#{ofertasController.idCapacidades}"
+                                          style="height: 200px;width: 300px;"
+                                          converter="javax.faces.Integer">
+                            <f:selectItems value="#{ofertasController.capacidades}" var="cap" itemLabel="#{cap.nombre}" itemValue="#{cap.idcapacidad}"/>
+                        </h:selectManyMenu>
+                        <p:message for="capacidad"/>
+                        <h:outputLabel value="Si la capacidad no se encuentra entre las opcionadas porfavor registrela"/>
+                        <h:link value="Registrar Capacidad" outcome="/empleador/capacidadesOf.xhtml" style="color:#01DFD7;" />
+                     </h:panelGrid>
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Salario" for="salario" />
-                        <p:inputText id="salario" value="#{ofertasController.salario}" />
+                        <p:inputText id="salario" value="#{ofertasController.salario}" style="width: 700px;" />
                         <p:message for="salario"/>
                     </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Descripcion" for="descripcion" />
                         <p:editor id="descripcion" value="#{ofertasController.descripcion}" width="670" />
                         <p:message for="descripcion"/>
                     </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700">
-                        <h:outputLabel value="Nivel de Estudios Maximos" for="EstMaximos" />
-                        <p:selectOneMenu id="EstMaximos" value ="#{ofertasController.nivelEstudiosMax}">
-                            <f:selectItem itemLabel="---" itemValue=""/>
-                            <f:selectItems value="#{ofertasController.estudiosMax}"/>
-                        </p:selectOneMenu>
-                        <p:message for="EstMaximos"/>
-                    </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700"> 
-                       <h:outputLabel value="Nivel de Estudios Minimos" for="EstMinimos" />
-                       <p:selectOneMenu id="EstMinimos" value ="#{ofertasController.nivelEstudiosMin}">
-                            <f:selectItem itemLabel="---" itemValue=""/>
-                            <f:selectItems value="#{ofertasController.estudiosMin}"/>
-                        </p:selectOneMenu>
-                        <p:message for="EstMinimos"/>
-                    </h:panelGrid>
-                    <br />
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Empresas" for="nit" />
-                        <p:selectOneMenu id="nit" value="#{ofertasController.nit}" >
+                        <p:selectOneMenu id="nit" value="#{ofertasController.nit}">
                             <f:selectItem  itemLabel="---" itemValue="" />
                             <f:selectItems value="#{empresasController.empresas}" var="emp" itemLabel="#{emp.nombre}" itemValue="#{emp.nit}"/>
                         </p:selectOneMenu>
                         <p:message for="nit"/>
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Guardar" icon="ui-icon-disk" 
-                                     update="ofertasPanel,messages"
-                                     action="#{ofertasController.doCreate(actionEvent)}"
-                                     ajax="false"
-                                     >
+                    <p:commandButton  value="Guardar" icon="ui-icon-disk" 
+                                      update="ofertasPanel,messages"
+                                      action="#{ofertasController.doCreate(actionEvent)}"
+                                      ajax="false"
+                                      >
                         <p:resetInput target="form"/>
-                    </p:commandButton>
-   
+                    </p:commandButton>&nbsp;&nbsp;
+                    <p:commandButton value="Listar Ofertas"
+                                     action="#{ofertasController.toList()}"
+                                     immediate="true"
+                                     ajax="false"/>
+                        
+                    
+
+
+
+
                     <br />
                     <br />
                     <h:link outcome="/index" value="Regresar al Inicio"/>
                 </h:form>
             </p:fieldset>  
         </ui:define>
-      
+
     </ui:composition>
 </html>
 

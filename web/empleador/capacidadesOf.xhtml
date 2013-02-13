@@ -3,57 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="Empleabilidad"></h:outputText>
         </ui:define>
         <ui:define name="body">
-
-            <div class="message blue">
-                Ingresar tu hoja de vida te permitirá postularte a todas las búsquedas de empleos que se publiquen en el sitio y, si así lo deseas, las empresas y consultoras que accedan a nuestra base de datos en busca de candidatos podrán consultarlo.
-                El proceso de ingreso de la hoja de vida está dividido en pasos. Al finalizar la carga de tus datos presiona el botón "guardar" al final de la página antes de ir al paso siguiente. Los ítems destacados en naranja son obligatorios.
-            </div>
-            <h:form>
-                <p:menubar>
-                    <p:menuitem value="Oferta" url="/faces/empleador/Ofertas.xhtml" icon="ui-icon-star"/>  
-                    <p:menuitem value="Asignar Capacidades" url="/empleador/capacidadesOf.xhtml" icon="ui-icon-search" />
-                    <p:menuitem value="Asignar Profesiones" url="/faces/empleador/profesionesOf.xhtml" icon="ui-icon-search" />
-                </p:menubar>
-            </h:form>    
             <br/>
-            <p:fieldset legend="Asignar Capacidades"> 
-                <h:form id="form">
-                    <p:growl id="growl"/>
+            <br/>
+            <h:form id="form">
+                <p:fieldset id="editCapaPanel" legend="Crear Capacidad">  
+                    <p:messages id="messages" showDetail="true"/>
                     <h:panelGrid columns="1" width="700">
-                        <h:outputLabel value="Capacidades" for="capacidad" />
-                        <p:selectOneMenu  value="#{capacidadesPorOfertasController.idCapacidades}">
-                            <f:selectItem itemValue="" itemLabel="---"/>
-                            <f:selectItems value="#{capacidadesPorOfertasController.capacidades}" var="cap" itemLabel="#{cap.nombre}" itemValue="#{cap.idcapacidad}"/>
+                        <h:outputLabel for="name" value="Nombre de la capacidad laboral: *"/>
+                        <p:inputText id="name" value="#{controlCapacidad.nombre}" size="45"/>
+                        <p:message for="name"/>
+                     </h:panelGrid>  
+                     <h:panelGrid columns="1" width="700">
+                        <h:outputLabel for="areas" value="Área de desempeño Laboral: *"/>
+                        <p:selectOneMenu id="areas" value="#{controlCapacidad.idAreaSelected}">
+                            <f:selectItem itemLabel="Escoja uno" itemValue=""/>
+                            <f:selectItems value="#{controlCapacidad.areas}"
+                                           var="area"
+                                           itemLabel="#{area.nombre}"
+                                           itemValue="#{area.idarea}"/>                                           
                         </p:selectOneMenu>
-                    </h:panelGrid>
-                    <br/>
-                    <h:panelGrid columns="1" width="700">
-                        <h:outputLabel value="Oferta" for="oferta" />
-                        <p:selectOneMenu id="oferta" value="#{capacidadesPorOfertasController.idOfertas}"  required="true" requiredMessage="#{bundle.CreateCapacidadesPorOfertasRequiredMessage_oferta}">
-                            <f:selectItem itemValue="" itemLabel="---"/>
-                            <f:selectItems value="#{ofertasController.ofertas}" var="ofe" itemLabel="#{ofe.nombre}" itemValue="#{ofe.idofertas}"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
-                    <br />
-                    <p:commandButton value="Guardar" icon="ui-icon-disk" 
-                                     update="growl"
-                                     action="#{capacidadesPorOfertasController.doCreate(actionEvent)}"
-                                     ajax="false">
-                        <p:resetInput target="form"/>
-                    </p:commandButton>
-                    <br />
-                    <br />
-                    <h:link outcome="/index" value="Regresar al inicio"/>
-                </h:form>
-            </p:fieldset>  
+                        <p:message for="areas"/>
+                     </h:panelGrid>    
+                    
+                </p:fieldset>
+                <p:commandButton value="Salvar" icon="ui-icon-disk" update="editCapaPanel,messages"
+                                 action="#{controlCapacidad.doCreate()}"
+                                 ajax="false">
+                    <p:resetInput target="form"/>
+                </p:commandButton>
+                <p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w" 
+                                 immediate="true" ajax="false" 
+                                 action="#{controlCapacidad.comeBack(actionEvent)}"/>
+            </h:form>               
         </ui:define>
+
     </ui:composition>
 </html>
-
