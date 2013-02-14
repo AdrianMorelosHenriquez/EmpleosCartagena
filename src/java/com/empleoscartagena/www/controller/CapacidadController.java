@@ -44,7 +44,6 @@ public class CapacidadController implements Serializable{
     private Integer idcapacidad;
     @NotNull(message = "El nombre de la competencia laboral es obligatorio")
     @Size(min = 5, max = 45, message = "El nombre de la competencia debe tener entre 5 y 45 caracteres")
-    @Pattern(regexp="[\\w\\s]+", message = "Nombre dado a la competencia laboral debe ser con palabras bien formadas")
     private String nombre;
     @EJB
     private CapacidadFacade ejbCFacade;
@@ -90,6 +89,7 @@ public class CapacidadController implements Serializable{
     }
 
     public List<Area> getAreas() {
+         areas = ejbAFacade.findAll();
         return areas;
     }
 
@@ -238,11 +238,11 @@ public class CapacidadController implements Serializable{
         this.idcapacidad = selected.getIdcapacidad();
         this.nombre = selected.getNombre();
         this.isEditAction = true;
-        return "editCapacidad";
+        return "edit";
     }
 
     public String goCreatePage(ActionEvent actionEvent) {
         this.isEditAction = false;
-        return "createCapacidad";
+        return "edit";
     }
 }

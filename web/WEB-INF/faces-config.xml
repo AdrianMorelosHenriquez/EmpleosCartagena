@@ -11,5 +11,12 @@
             <base-name>/resources/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-    </application>  
+    </application>
+    <navigation-rule>
+        <from-view-id>/empleador/Ofertas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ofertasList</from-outcome>
+            <to-view-id>/empleador/ofertasList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

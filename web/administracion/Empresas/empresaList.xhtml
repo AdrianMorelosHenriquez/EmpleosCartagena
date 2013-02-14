@@ -17,7 +17,7 @@
             <br/>
             <p:fieldset legend="Lista de Empresas" style="width: 950px;">
                 <h:form id="form"  prependId="false">
-                    <p:growl id="growl"/>  
+                    <p:messages id="messages" showDetail="true"/>  
                     <p:dataTable id="empresasDT" value="#{empresasController.empresas}" var="empresa"
                                  style="width:950px;"
                                  paginator="true" rows="8" lazy="true"
@@ -41,7 +41,7 @@
                             </f:facet>
                             <h:outputText value="#{empresa.actividad}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 4%">
                             <p:commandButton id="viewButton" 
                                              update=":form:EmpDisplay"
                                              oncomplete="viewEmpDialog.show()"
@@ -51,7 +51,7 @@
                                 <f:setPropertyActionListener value="#{empresa}" target="#{empresasController.selected}" />  
                             </p:commandButton>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 4%">
                             <p:commandButton id="editButton" ajax="false" 
                                              icon="ui-icon-pencil" 
                                              title="Editar la empresa" 
@@ -59,7 +59,7 @@
                                 <f:setPropertyActionListener value="#{empresa}" target="#{empresasController.selected}" />  
                             </p:commandButton>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 4%">
                             <p:commandButton id="deleteButton" 
                                              update=":form:Display" 
                                              oncomplete="deleteProfDialog.show()"
@@ -80,7 +80,7 @@
                         </h:panelGrid>
                         <p style=" font-weight:  bold">¿Realmente Desea Borrarla?</p>
                         <p:commandButton value="SI" id="confirmDeleteButton" 
-                                         update=":form:empresasDT,growl" 
+                                         update=":form:empresasDT,messages" 
                                          oncomplete="deleteProfDialog.hide()"
                                          actionListener="#{empresasController.doDelete(e)}">
                         </p:commandButton>

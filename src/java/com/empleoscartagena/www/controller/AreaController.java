@@ -256,11 +256,11 @@ public class AreaController implements Serializable{
         this.nombre = selected.getNombre();
         this.categoria = selected.getCategoria();
         this.isEditAction = true;
-        return "editArea";
+        return "edit";
     }
 
     public String goCreatePage(ActionEvent actionEvent) {
         this.isEditAction = false;
-        return "createArea";
+        return "edit";
     }
 }

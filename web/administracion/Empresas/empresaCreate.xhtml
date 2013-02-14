@@ -19,63 +19,63 @@
                 <h:form id="form">
                     <p:growl id="growl" showDetail="true"/>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Nit" for="nit" />
-                        <p:inputText id="nit" value="#{empresasController.nit}">
+                        <p:inputText id="nit" value="#{empresasController.nit}" style="width: 500px;">
                             <p:ajax update="out" listener="#{empresasController.consult()}"/>  
                         </p:inputText>
                         <h:outputText id="out" value="#{empresasController.getconsult()}" /> 
                         <p:message for="nit"/>
                     </h:panelGrid>
                     <br/>   
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Nombre" for="nombre" />
-                        <p:inputText id="nombre" value="#{empresasController.nombre}"  />
+                        <p:inputText id="nombre" value="#{empresasController.nombre}" style="width: 500px;"  />
                         <p:message for="nombre"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Actividad" for="actividad" />
-                        <p:inputText id="actividad" value="#{empresasController.actividad}"  />
+                        <p:inputText id="actividad" value="#{empresasController.actividad}" style="width: 500px;"  />
                         <p:message for="actividad"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Nombre de Contacto" for="nombreContacto" />
-                        <p:inputText id="nombreContacto" value="#{empresasController.nombreContacto}" />
+                        <p:inputText id="nombreContacto" value="#{empresasController.nombreContacto}" style="width: 500px;"/>
                         <p:message for="nombreContacto"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Representante Legal" for="representanteLegal" />
-                        <p:inputText id="representanteLegal" value="#{empresasController.repLegal}" />
+                        <p:inputText id="representanteLegal" value="#{empresasController.repLegal}" style="width: 500px;" />
                         <p:message for="representanteLegal"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Telefono de Contacto" for="telefonoContacto" />
-                        <p:inputText id="telefonoContacto" value="#{empresasController.telContacto}"  />
+                        <p:inputText id="telefonoContacto" value="#{empresasController.telContacto}" style="width: 500px;" />
                         <p:message for="telefonoContacto"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Celular de Contacto" for="celularContacto" />
-                        <p:inputText id="celularContacto" value="#{empresasController.celContacto}"  />
+                        <p:inputText id="celularContacto" value="#{empresasController.celContacto}" style="width: 500px;" />
                         <p:message for="celularContacto"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Direccion" for="direccion" />
-                        <p:inputText id="direccion" value="#{empresasController.direccion}"  />
+                        <p:inputText id="direccion" value="#{empresasController.direccion}" style="width: 500px;" />
                         <p:message for="direccion"/>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Correo Electronico" for="email" />
-                        <p:inputText id="email" value="#{empresasController.email}" />
+                        <p:inputText id="email" value="#{empresasController.email}" style="width: 500px;"/>
                         <p:message for="email"/>
                     </h:panelGrid>
-                    <h:panelGrid columns="1" width="700"> 
+                    <h:panelGrid columns="1" width="700" styleClass="row"> 
                         <h:outputLabel value="Descripcion" for="descripcion" />
                         <p:editor id="descripcion" value="#{empresasController.descripcion}" width="670"/>
                         <p:message for="descripcion"/>

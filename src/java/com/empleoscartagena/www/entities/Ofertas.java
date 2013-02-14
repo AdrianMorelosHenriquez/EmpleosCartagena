@@ -5,8 +5,10 @@
 package com.empleoscartagena.www.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -96,9 +98,9 @@ public class Ofertas implements Serializable {
     @ManyToOne(optional = false)
     private Empresas nit;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oferta")
-    private Collection<ProfesionesPorOferta> profesionesPorOfertaCollection;
+    private Collection<ProfesionesPorOferta> profesionesPorOfertaCollection = new ArrayList<ProfesionesPorOferta>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oferta")
-    private Collection<CapacidadesPorOfertas> capacidadesPorOfertasCollection;
+    private Collection<CapacidadesPorOfertas> capacidadesPorOfertasCollection = new ArrayList<CapacidadesPorOfertas>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oferta")
     private Collection<Inscripcion> inscripcionCollection;
 

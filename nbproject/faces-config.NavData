@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="administracion/capacidades/edit.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="administracion/Categorias/management.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="aspirantes/datosPersonales/View.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="administracion/Areas/edit.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="administracion/Profesiones/management.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="template.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="empleador/Ofertas.xhtml" x="1175" y="59" zoom="true"/>
+        <Node id="empleador/capacidadesOf.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="empleador/ofertasList.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="administracion/Profesiones/edit.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="aspirantes/datosPersonales/Edit.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="administracion/Areas/management.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="administracion/Empresas/empresaEdit.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="administracion/Categorias/edit.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="empleador/ofertasEdit.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="administracion/Empresas/empresaCreate.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="index.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="aspirantes/datosPersonales/List.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="aspirantes/datosPersonales/Create.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="administracion/Empresas/empresaList.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="administracion/capacidades/management.xhtml" x="900" y="450" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "empresasController")
-@RequestScoped
+@SessionScoped
 public class EmpresasController implements Serializable {
 
     private Empresas selected = new Empresas();

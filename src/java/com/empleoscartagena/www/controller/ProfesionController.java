@@ -264,11 +264,11 @@ public class ProfesionController implements Serializable {
         id = selected.getId();
         nombre = selected.getNombre();
         this.isEditAction = true;
-        return "editProf";
+        return "edit";
     }
 
     public String goCreatePage(ActionEvent actionEvent) {
         isEditAction = false;
-        return "createProf";
+        return "edit";
     }
 }
