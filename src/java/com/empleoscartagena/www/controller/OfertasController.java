@@ -55,8 +55,8 @@ public class OfertasController implements Serializable {
     private List<Empresas> empresas;
     private Map<Ofertas, String> ofertasAvailable;
     private List<String> estudios;
-    
-    
+    private List<CapacidadesPorOfertas> capaOfs;
+    private List<ProfesionesPorOferta> profOfs;
     //private List<CapacidadesPorOfertas> capsDeOf;
     @NotNull(message = "Debe colocar cuantos años de experiencia requiere la oferta")
     private int expYears;
@@ -85,7 +85,6 @@ public class OfertasController implements Serializable {
     private List<Integer> idCapacidades;
     private List<Integer> idProfesiones;
     private List<Profesion> profesiones;
-
 
     public OfertasController() {
     }
@@ -120,7 +119,7 @@ public class OfertasController implements Serializable {
     public List<Integer> getIdProfesiones() {
         return idProfesiones;
     }
-    
+
     public void setIdProfesiones(List<Integer> idProfesiones) {
         this.idProfesiones = idProfesiones;
     }
@@ -156,7 +155,7 @@ public class OfertasController implements Serializable {
         this.selectedCap = selectedCap;
     }
 
-        public List<Ofertas> getOfertas() {
+    public List<Ofertas> getOfertas() {
         ofertas = ejbFacade.findAll();
         return ofertas;
     }
@@ -168,23 +167,23 @@ public class OfertasController implements Serializable {
 
     public List<Capacidad> getCapacidades() {
         capacidadesOf = ejbCFacade.findAll();
-       return capacidadesOf;
+        return capacidadesOf;
     }
-    private void setEstudios()
-    {
-    estudios = new ArrayList<String>();
-    estudios.add("Phd");
-    estudios.add("Magister");
-    estudios.add("Especialista");
-    estudios.add("Profesional");
-    estudios.add("Tecnologo");
-    estudios.add("Tecnico");
-    estudios.add("Bachiller");
+
+    private void setEstudios() {
+        estudios = new ArrayList<String>();
+        estudios.add("Phd");
+        estudios.add("Magister");
+        estudios.add("Especialista");
+        estudios.add("Profesional");
+        estudios.add("Tecnologo");
+        estudios.add("Tecnico");
+        estudios.add("Bachiller");
     }
-    public List<String> getEstudios()
-    {
-    setEstudios();
-    return estudios;
+
+    public List<String> getEstudios() {
+        setEstudios();
+        return estudios;
     }
 
     private void setDisponibilidad() {
@@ -213,92 +212,117 @@ public class OfertasController implements Serializable {
         return ofert;
     }
 
+    public List<CapacidadesPorOfertas> getCapacidadesOf() {
+        List<CapacidadesPorOfertas> newCapa = new ArrayList<CapacidadesPorOfertas>();
+        capaOfs = ejbCOFacade.findAll();
+        Integer idOferta = selected.getIdofertas();
+        for (CapacidadesPorOfertas caps : capaOfs) {
+            if (idOferta.equals(caps.getOferta().getIdofertas())) {
+                newCapa.add(caps);
+            }
+        }
+        return newCapa;
+    }
+
+    public List<ProfesionesPorOferta> getProfesionesOf() {
+        List<ProfesionesPorOferta> newProf = new ArrayList<ProfesionesPorOferta>();
+        profOfs = ejbPOFacade.findAll();
+        Integer idOferta = selected.getIdofertas();
+        for (ProfesionesPorOferta prof : profOfs) {
+            if (idOferta.equals(prof.getOferta().getIdofertas())) {
+                newProf.add(prof);
+            }
+        }
+        return newProf;
+
+    }
+
     public List<Profesion> getProfesiones() {
         profesiones = ejbPFacade.findAll();
         return profesiones;
     }
-    public boolean validarOferta()
-    {
-     for(Ofertas off : ofertas)
-     {
-       if(this.cargo.equals(off.getCargo()) && this.nit.equals(off.getNit().getNit()))
-           return true;
-     }
-     return false;
+
+    public boolean validarOferta() {
+        for (Ofertas off : ofertas) {
+            if (this.cargo.equals(off.getCargo()) && this.nit.equals(off.getNit().getNit())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void doCreate(ActionEvent actionEvent) {
-        if(!validarOferta()){
-        String nombre_oferta = cargo;
-        try {
-            List<Capacidad> capa = new ArrayList<Capacidad>();
-            List<Profesion> prof = new ArrayList<Profesion>();
+        if (!validarOferta()) {
+            String nombre_oferta = cargo;
+            try {
+                List<Capacidad> capa = new ArrayList<Capacidad>();
+                List<Profesion> prof = new ArrayList<Profesion>();
 
-            Empresas tmp = ejbEFacade.find(this.nit);
+                Empresas tmp = ejbEFacade.find(this.nit);
 
-            for (Integer cap : idCapacidades) {
-                Capacidad tmpC = ejbCFacade.find(cap);
-                capa.add(tmpC);
-            }
-            for (Integer pro : idProfesiones) {
-                Profesion tmpP = ejbPFacade.find(pro);
-                prof.add(tmpP);
-            }
-
-            if (tmp != null && !capa.isEmpty() && !prof.isEmpty()) {
-                newOfertas = new Ofertas();
-                newOfertas.setFechaStart(fechaStart);
-                newOfertas.setFechaEnd(fechaEnd);
-                newOfertas.setCargo(cargo);
-                newOfertas.setDescripcion(descripcion);
-                newOfertas.setSalario(salario);
-                newOfertas.setNivelEstudiosMax(nivelEstudiosMax);
-                newOfertas.setNivelEstudiosMin(nivelEstudiosMin);
-                newOfertas.setNit(tmp);
-                newOfertas.setAniosExperiencia(expYears);
-                ejbFacade.create(newOfertas);
-                for (Capacidad capaci : capa) {
-                    CapacidadesPorOfertas capOf = new CapacidadesPorOfertas();
-                    capOf.setOferta(newOfertas);
-                    capOf.setCapacidad(capaci);
-                    ejbCOFacade.create(capOf);
+                for (Integer cap : idCapacidades) {
+                    Capacidad tmpC = ejbCFacade.find(cap);
+                    capa.add(tmpC);
                 }
-                for (Profesion profeci : prof) {
-                    ProfesionesPorOferta proOf = new ProfesionesPorOferta();
-                    proOf.setOferta(newOfertas);
-                    proOf.setProfesion(profeci);
-                    ejbPOFacade.create(proOf);
+                for (Integer pro : idProfesiones) {
+                    Profesion tmpP = ejbPFacade.find(pro);
+                    prof.add(tmpP);
                 }
-                idCapacidades=null;
-                idProfesiones = null;
-                ofertas.add(newOfertas);
-                newOfertas = null;
-                fechaStart = null;
-                fechaEnd = null;
-                cargo = null;
-                descripcion = null;
-                salario = 0;
-                nivelEstudiosMax = null;
-                nivelEstudiosMin = null;
-                nit = null;
-                expYears = 0;
 
+                if (tmp != null && !capa.isEmpty() && !prof.isEmpty()) {
+                    newOfertas = new Ofertas();
+                    newOfertas.setFechaStart(fechaStart);
+                    newOfertas.setFechaEnd(fechaEnd);
+                    newOfertas.setCargo(cargo);
+                    newOfertas.setDescripcion(descripcion);
+                    newOfertas.setSalario(salario);
+                    newOfertas.setNivelEstudiosMax(nivelEstudiosMax);
+                    newOfertas.setNivelEstudiosMin(nivelEstudiosMin);
+                    newOfertas.setNit(tmp);
+                    newOfertas.setAniosExperiencia(expYears);
+                    ejbFacade.create(newOfertas);
+                    for (Capacidad capaci : capa) {
+                        CapacidadesPorOfertas capOf = new CapacidadesPorOfertas();
+                        capOf.setOferta(newOfertas);
+                        capOf.setCapacidad(capaci);
+                        ejbCOFacade.create(capOf);
+                    }
+                    for (Profesion profeci : prof) {
+                        ProfesionesPorOferta proOf = new ProfesionesPorOferta();
+                        proOf.setOferta(newOfertas);
+                        proOf.setProfesion(profeci);
+                        ejbPOFacade.create(proOf);
+                    }
+                    idCapacidades = null;
+                    idProfesiones = null;
+                    ofertas.add(newOfertas);
+                    newOfertas = null;
+                    fechaStart = null;
+                    fechaEnd = null;
+                    cargo = null;
+                    descripcion = null;
+                    salario = 0;
+                    nivelEstudiosMax = null;
+                    nivelEstudiosMin = null;
+                    nit = null;
+                    expYears = 0;
+
+                    FacesMessage message =
+                            new FacesMessage(FacesMessage.SEVERITY_INFO, "La oferta " + nombre_oferta + " ha sido creada", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    //RequestContext.getCurrentInstance().reset("createProfesionForm:createProfesionPanel");  
+                }
+
+            } catch (Exception e) {
                 FacesMessage message =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "La oferta " + nombre_oferta + " ha sido creada", null);
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "La oferta " + nombre_oferta + " pudo no haberse creado " + e + " ", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
-                //RequestContext.getCurrentInstance().reset("createProfesionForm:createProfesionPanel");  
             }
+        } else {
+            FacesMessage message =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe una oferta con el cargo " + this.cargo + "y la empresa " + this.nit, null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
 
-        } catch (Exception e) {
-            FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "La oferta " + nombre_oferta + " pudo no haberse creado " + e + " ", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-       }else{
-            FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe una oferta con el cargo " + this.cargo + "y la empresa "+ this.nit, null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        
         }
     }
 
@@ -328,19 +352,19 @@ public class OfertasController implements Serializable {
         try {
             Ofertas tmpP = ejbFacade.find(selected.getIdofertas().intValue());
             List<CapacidadesPorOfertas> capOfs = (List<CapacidadesPorOfertas>) selected.getCapacidadesPorOfertasCollection();
-            for(CapacidadesPorOfertas caps : capOfs){
-             ejbCOFacade.remove(caps);
+            for (CapacidadesPorOfertas caps : capOfs) {
+                ejbCOFacade.remove(caps);
             }
             List<ProfesionesPorOferta> proOfs = (List<ProfesionesPorOferta>) selected.getProfesionesPorOfertaCollection();
-            for(ProfesionesPorOferta profs : proOfs){
-             ejbPOFacade.remove(profs);
+            for (ProfesionesPorOferta profs : proOfs) {
+                ejbPOFacade.remove(profs);
             }
             if (tmpP != null) {
                 List<Capacidad> capa = new ArrayList<Capacidad>();
                 List<Profesion> prof = new ArrayList<Profesion>();
 
                 Empresas tmpE = ejbEFacade.find(this.nit);
-                
+
                 for (Integer cap : idCapacidades) {
                     Capacidad tmpC = ejbCFacade.find(cap);
                     capa.add(tmpC);
@@ -372,7 +396,7 @@ public class OfertasController implements Serializable {
                         proOf.setProfesion(profeci);
                         ejbPOFacade.edit(proOf);
                     }
-                    idCapacidades=null;
+                    idCapacidades = null;
                     idProfesiones = null;
                     fechaStart = null;
                     fechaEnd = null;
@@ -383,7 +407,7 @@ public class OfertasController implements Serializable {
                     salario = 0;
                     nit = null;
                     expYears = 0;
-                    
+
                     FacesMessage message =
                             new FacesMessage(FacesMessage.SEVERITY_INFO, "La oferta " + selected.getNit().getNombre() + " " + selected.getCargo() + " ha sido actualizada", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);
@@ -392,7 +416,7 @@ public class OfertasController implements Serializable {
             }
         } catch (Exception e) {
             FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "La oferta " + selected.getNit().getNombre() + " " + selected.getCargo() + " pudo no haberse actualizado "+e, null);
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "La oferta " + selected.getNit().getNombre() + " " + selected.getCargo() + " pudo no haberse actualizado " + e, null);
             FacesContext.getCurrentInstance().addMessage(null, message);
 
         }
@@ -414,13 +438,22 @@ public class OfertasController implements Serializable {
 
         return "ofertasEdit";
     }
-    public String toList()
-    {
-    return "ofertasList";
+
+    public String toList() {
+        return "List";
     }
-    public String toCreate()
-    {
-    return "Ofertas";
+
+    public String toCreate() {
+        cargo = null;
+        fechaStart = null;
+        fechaEnd = null;
+        descripcion = null;
+        nit = null;
+        salario = 0;
+        expYears = 0;
+        nivelEstudiosMax = null;
+        nivelEstudiosMin = null;
+        return "Ofertas";
     }
 
     public int getExpYears() {
