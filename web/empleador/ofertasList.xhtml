@@ -35,9 +35,10 @@
                             </f:facet>
                             <h:outputText value="#{ofe.cargo}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 4%">
                             <p:commandButton id="viewButton" 
-                                             update=":form:OffDisplay"
+                                             immediate="true"
+                                             update=":form:offDisplay"
                                              oncomplete="viewOffDialog.show()"
                                              icon="ui-icon-search" 
                                              title="ver datos de Oferta" 
@@ -45,7 +46,7 @@
                                 <f:setPropertyActionListener value="#{ofe}" target="#{ofertasController.selected}" />  
                             </p:commandButton>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 4%">
                             <p:commandButton id="editButton" ajax="false" 
                                              icon="ui-icon-pencil" 
                                              title="Editar Oferta" 
@@ -53,9 +54,10 @@
                                 <f:setPropertyActionListener value="#{ofe}" target="#{ofertasController.selected}" />  
                             </p:commandButton>
                         </p:column>
-                        <p:column>
-                            <p:commandButton id="deleteButton" 
-                                             update=":form:Display" 
+                        <p:column style="width: 4%">
+                            <p:commandButton id="deleteButton"
+                                             immediate="true"
+                                             update=":form:deleteDisplay" 
                                              oncomplete="deleteOffDialog.show()"
                                              icon="ui-icon-trash" 
                                              title="Eliminar Oferta">  
@@ -66,7 +68,7 @@
                     <p:dialog id="deleteDlg" header="DETALLES DE LA OFERTA" 
                               widgetVar="deleteOffDialog" resizable="false"  
                               width="400" showEffect="fade" hideEffect="explode" modal="true">
-                        <h:panelGrid id="Display" columns="2" cellpadding="4">  
+                        <h:panelGrid id="deleteDisplay" columns="2" cellpadding="4">  
                             <h:outputText value="Empresa:" />  
                             <h:outputText value="#{ofertasController.selected.nit.nombre}" />  
                             <h:outputText value="Cargo:" />
@@ -80,42 +82,44 @@
                         </p:commandButton>
                         <p:commandButton value="NO" id="deniedDeleteButton" 
                                          immediate="true"
-                                         oncomplete="deleteProfDialog.hide()"
+                                         oncomplete="deleteOffDialog.hide()"
                                          />
                     </p:dialog>
                     <p:dialog id="ViewDlg" header="DETALLES DE LA OFERTA" 
                               widgetVar="viewOffDialog" resizable="false"  
                               width="400" showEffect="fade" hideEffect="explode" modal="true">
-                        <h:panelGrid id="OffDisplay" columns="2" cellpadding="4">  
-                            <h:outputText value="Fecha de Inicio:" />  
+                        <h:panelGrid id="offDisplay" columns="2" cellpadding="4">  
+                            <h:outputText value="fecha de inicio:" />  
                             <h:outputText value="#{ofertasController.selected.fechaStart}" >
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>    
-                            <h:outputText value="Fecha Final:" />
+                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                            </h:outputText>
+                            <h:outputText value="fecha final:" />
                             <h:outputText value="#{ofertasController.selected.fechaEnd}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>   
-                            <h:outputText value="Cargo:" />
+                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                            </h:outputText>    
+                            <h:outputText value="cargo:" />
                             <h:outputText value="#{ofertasController.selected.cargo}"/>
+                            <h:outputText value="tiempo de experiencia:" />
+                            <h:outputText value="#{ofertasController.selected.aniosExperiencia}"/>
+                            <h:outputText value="nivel maximo de estudios:" />
+                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMax}"/>
+                            <h:outputText value="nivel minimo de estudios:" />
+                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMin}"/>
+                            <h:outputText value="descripcion:" />
+                            <h:outputText value="#{ofertasController.selected.descripcion}"/>
+                            <h:outputText value="salario:" />
+                            <h:outputText value="#{ofertasController.selected.salario}"/>
                             <h:outputText value="Empresa:" />
                             <h:outputText value="#{ofertasController.selected.nit.nombre}"/>
-                            <h:outputText value="Estudios Maximos:" />
-                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMax}"/>
-                            <h:outputText value="Estudios Minimos:" />
-                            <h:outputText value="#{ofertasController.selected.nivelEstudiosMin}"/>
-                            <h:outputText value="Salario:" />
-                            <h:outputText value="#{ofertasController.selected.salario}"/>
-                            <h:outputText value="Descripcion:" />
-                            <h:outputText value="#{ofertasController.selected.descripcion}"/>
-                            <h:outputText value="Capacidades:" />
-                            <p:dataList value="#{ofertasController.selected.capacidadesPorOfertasCollection}" var="cap" itemType="disc">  
-                                #{cap.capacidad.nombre}
-                            </p:dataList>
-                            <h:outputText value="Profesiones:" />
-                            <p:dataList value="#{ofertasController.selected.profesionesPorOfertaCollection}" var="pro" itemType="disc">  
+                             <h:outputText value="Profesiones:" /> 
+                             <p:dataList value="#{ofertasController.profesionesOf}" var="pro" itemType="disc">
                                 #{pro.profesion.nombre}
-                            </p:dataList>
-
+                            </p:dataList>    
+                            <h:outputText value="Capacidades:" /> 
+                            <p:dataList value="#{ofertasController.capacidadesOf}" var="cap" itemType="disc">
+                                #{cap.capacidad.nombre}
+                            </p:dataList>    
+                            
                         </h:panelGrid>
                     </p:dialog>
                     <br />
